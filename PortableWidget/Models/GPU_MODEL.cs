@@ -8,7 +8,7 @@ namespace PortableWidget.Models
 {
     class GPU_MODEL
     {
-        string GPU_name { get; set} //Gpu name and model
+        string GPU_name { get; set; } //Gpu name and model
         int Temperature { get; set; } //current GPU temperature
         float Speed { get; set; } //current core speed
         float Memory_use { get; set; } //usage of GPU memory
