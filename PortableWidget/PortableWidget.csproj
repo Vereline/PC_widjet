@@ -69,11 +69,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CPU_MODEL.cs" />
-    <Compile Include="Models\DISK_MODEL.cs" />
-    <Compile Include="Models\ETHERNET_MODEL.cs" />
-    <Compile Include="Models\GPU_MODEL.cs" />
-    <Compile Include="Models\RAM_MODEL.cs" />
+    <Compile Include="Models\Cpu.cs" />
+    <Compile Include="Models\Disk.cs" />
+    <Compile Include="Models\Ethernet.cs" />
+    <Compile Include="Models\Gpu.cs" />
+    <Compile Include="Models\Ram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

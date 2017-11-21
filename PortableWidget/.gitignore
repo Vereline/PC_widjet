@@ -11,8 +11,8 @@
 .vs
 .vscode
 
-obj/*
-bin/*
+obj
+bin
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
