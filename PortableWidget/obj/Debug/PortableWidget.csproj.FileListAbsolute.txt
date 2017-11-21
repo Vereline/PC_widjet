@@ -12,3 +12,6 @@ D:\laby\5 semestr\ASM\Course project\PortableWidget\PortableWidget\obj\Debug\Por
 D:\laby\5 semestr\ASM\Course project\PortableWidget\PortableWidget\obj\Debug\PortableWidget.csproj.GenerateResource.Cache
 D:\laby\5 semestr\ASM\Course project\PortableWidget\PortableWidget\obj\Debug\PortableWidget.exe
 D:\laby\5 semestr\ASM\Course project\PortableWidget\PortableWidget\obj\Debug\PortableWidget.pdb
+C:\Users\Lenovo\Source\Repos\PC_widjet\PortableWidget\bin\Debug\PortableWidget.exe.config
+C:\Users\Lenovo\Source\Repos\PC_widjet\PortableWidget\obj\Debug\PortableWidget.exe
+C:\Users\Lenovo\Source\Repos\PC_widjet\PortableWidget\obj\Debug\PortableWidget.pdb
