@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace PortableWidget.Models
 {
-    public class Gpu
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+
+    public class Gpu : DbContext
     {
-        public string GpuModel { get; set; }
-        public int Temperature { get; set; } 
-        public float Speed { get; set; } 
+        public Gpu() : base("name=Gpu") {}
+
+        public virtual DbSet<GpuModel> GpuModel { get; set; }
+    }
+
+    public class GpuModel
+    {
+        public string Id { get; set; }
+        public string GpuType { get; set; }
+        public int Temperature { get; set; }
+        public float Speed { get; set; }
         public float MemoryUsage { get; set; }
         public int CountOfThreads { get; set; }
         public int FanDutyPercentage { get; set; }

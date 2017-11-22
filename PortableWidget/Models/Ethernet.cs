@@ -1,19 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace PortableWidget.Models
 {
-    public enum SignalQuality {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+
+    public class Ethernet : DbContext
+    {
+        public Ethernet() : base("name=Ethernet") {}
+        public virtual DbSet<EthernetModel> EthernetModel { get; set; }
+    }
+
+    public enum SignalQuality
+    {
         GOOD,
         LOW,
         NORMAL
     }
 
-    public class Ethernet
+    public class EthernetModel
     {
+        public string Id { get; set; }
         public float SendPerSecond { get; set; }
         public float ReceivePerSecond { get; set; }
         public string SSID { get; set; }
