@@ -15,7 +15,7 @@ namespace PortableWidget.Models
     {
         public string Id { get; set; }
         public float UsagePercentage { get; set; }
-        public int Temperature { get; set; }
+        public int Temperature { get; set; } // i am not shure how to get this
         public float Speed { get; set; }
         public int CountOfProcesses { get; set; }
         public int CountOfThreads { get; set; }
