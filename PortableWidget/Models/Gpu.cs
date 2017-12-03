@@ -18,7 +18,7 @@ namespace PortableWidget.Models
         public int Temperature { get; set; }
         public float Speed { get; set; }
         public float MemoryUsage { get; set; }
-        public int CountOfThreads { get; set; }
+        public int CountOfThreads { get; set; } //we don't need this (this is not importent)
         public int FanDutyPercentage { get; set; }
     }
 }
