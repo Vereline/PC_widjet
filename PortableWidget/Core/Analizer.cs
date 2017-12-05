@@ -38,7 +38,11 @@ namespace PortableWidget.Core
             while (isRun) {
                 lock (CpuData.cpuData) {
                     CpuData.cpuData.Add(new CpuModel() {
-                        UsagePercentage = cpu.GetUsagePercentage()
+                        UsagePercentage = cpu.GetUsagePercentage(),
+                        Id = cpu.GetCpuId(),
+                        Speed = cpu.GetCurrentSpeed(),
+                        CountOfProcesses = cpu.CountOfProcess(),
+                        CountOfThreads = cpu.CountOfThreads()
                         // TODO - all props
                     });
                 }

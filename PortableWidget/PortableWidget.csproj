@@ -118,6 +118,7 @@
     <Compile Include="Core\Cpu.cs" />
     <Compile Include="Core\Disk.cs" />
     <Compile Include="Core\Gpu.cs" />
+    <Compile Include="Data\CpuData.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
