@@ -114,11 +114,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\Analizer.cs" />
+    <Compile Include="Core\Analyzer.cs" />
     <Compile Include="Core\Cpu.cs" />
     <Compile Include="Core\Disk.cs" />
     <Compile Include="Core\Gpu.cs" />
     <Compile Include="Data\CpuData.cs" />
+    <Compile Include="Data\DiskData.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

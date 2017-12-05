@@ -8,14 +8,14 @@ using PortableWidget.Data;
 
 namespace PortableWidget.Core
 {
-    public class Analizer
+    public class Analyzer
     {
         bool isRun = true;
         int timeout = 1000;
         Thread cpuAnalizeThread;
         Thread ramAnalizeThread;
 
-        public Analizer(int timeout) {
+        public Analyzer(int timeout) {
             this.timeout = timeout;
         }
 
@@ -33,7 +33,7 @@ namespace PortableWidget.Core
             isRun = false;
         }
 
-        private void AnalizeCpu() {
+        private void AnalyzeCpu() {
             Cpu cpu = new Core.Cpu();
             while (isRun) {
                 lock (CpuData.cpuData) {
@@ -43,10 +43,22 @@ namespace PortableWidget.Core
                         Speed = cpu.GetCurrentSpeed(),
                         CountOfProcesses = cpu.CountOfProcess(),
                         CountOfThreads = cpu.CountOfThreads()
-                        // TODO - all props
                     });
                 }
                 Thread.Sleep(timeout);
+            }
+        }
+
+        private void AnalyzeDisk()
+        {
+            Disk disk = new Disk();
+            while (isRun)
+            {
+                lock (DiskData.diskData)
+                {
+                    DiskData.diskData.Add(new DiskModel() {
+                    });
+                }
             }
         }
 
