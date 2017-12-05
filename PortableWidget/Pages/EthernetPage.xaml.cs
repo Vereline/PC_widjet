@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace PortableWidget.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Cpu_page.xaml
+    /// Логика взаимодействия для EthernetPage.xaml
     /// </summary>
-    public partial class Cpu_page : Page
+    public partial class EthernetPage : Page
     {
-        public Cpu_page()
+        public EthernetPage()
         {
             InitializeComponent();
-        }
-
-        private void InitializeComponent()
-        {
-            throw new NotImplementedException();
         }
     }
 }

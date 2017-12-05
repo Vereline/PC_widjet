@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace PortableWidget.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Cpu_page.xaml
+    /// Логика взаимодействия для DiskPage.xaml
     /// </summary>
-    public partial class Cpu_page : Page
+    public partial class DiskPage : Page
     {
-        public Cpu_page()
+        public DiskPage()
         {
             InitializeComponent();
-        }
-
-        private void InitializeComponent()
-        {
-            throw new NotImplementedException();
         }
     }
 }

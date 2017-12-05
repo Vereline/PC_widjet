@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace PortableWidget.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Cpu_page.xaml
+    /// Логика взаимодействия для GpuPage.xaml
     /// </summary>
-    public partial class Cpu_page : Page
+    public partial class GpuPage : Page
     {
-        public Cpu_page()
+        public GpuPage()
         {
             InitializeComponent();
-        }
-
-        private void InitializeComponent()
-        {
-            throw new NotImplementedException();
         }
     }
 }

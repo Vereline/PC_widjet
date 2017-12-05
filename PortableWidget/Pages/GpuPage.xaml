@@ -1,4 +1,4 @@
-﻿<Page x:Class="PortableWidget.Pages.CpuPage"
+﻿<Page x:Class="PortableWidget.Pages.GpuPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,10 +7,11 @@
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="600"
-      Title="CpuPage">
-
+      Title="GpuPage">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
@@ -19,9 +20,9 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <lvc:CartesianChart Grid.Row="0" Grid.ColumnSpan="3" Margin="10" Series="{Binding SeriesCollection}" LegendLocation="Right" >
+        <lvc:CartesianChart Grid.Row="0" Grid.ColumnSpan="5" Margin="10" Series="{Binding SeriesCollection}" LegendLocation="Right" >
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Using %" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                <lvc:Axis Title="Capacity" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="Time (60 sec)" Labels="{Binding Labels}"></lvc:Axis>
@@ -30,7 +31,7 @@
         <!--<Label Grid.Row="0" Grid.ColumnSpan="3" Margin="10" Background="White" Padding="150,100">
             here is the plot of usage irl is measured in percent
         </Label>-->
-        <Button Grid.Column="2" Grid.Row="1" Width="65" Height="30" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+        <Button Grid.Column="4" Grid.Row="1" Width="65" Height="30" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             Update
         </Button>
         <StackPanel Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="130">
@@ -38,38 +39,54 @@
              Id
             </TextBlock>
             <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-             User Persentage
+             Gpu Type
             </TextBlock>
             <!--<TextBlock Height="20" Width="110" Background="White" TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
              Temperature
             </TextBlock>-->
             <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+             Temperature
+            </TextBlock>
+            <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
              Speed
             </TextBlock>
             <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-             Count of Processes
-            </TextBlock>
-            <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-             Count of Threads
+             Memory Usage
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1" Margin="5,5,5,0" VerticalAlignment="Top" HorizontalAlignment="Center">
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Id}">
                 100
             </TextBlock>
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding UserPersentage}">
+            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding GpuType}">
+                100
+            </TextBlock>
+            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Temperature}">
                 100
             </TextBlock>
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Speed}">
                 100
             </TextBlock>
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding CountOfProcesses}">
-                100
-            </TextBlock>
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding CountOfThreads}">
+            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding MemoryUsage}">
                 100
             </TextBlock>
         </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="1" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="130">
+            <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+             Count Of Threads
+            </TextBlock>
+            <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+             Fan Duty Percentage
+            </TextBlock>
 
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="1" Margin="5,5,5,0" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock  Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding CountOfThreads}">
+                100
+            </TextBlock>
+            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding FanDutyPercentage}">
+                100
+            </TextBlock>
+        </StackPanel>
     </Grid>
 </Page>

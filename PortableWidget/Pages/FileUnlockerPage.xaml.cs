@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace PortableWidget.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Cpu_page.xaml
+    /// Логика взаимодействия для FileUnlockerPage.xaml
     /// </summary>
-    public partial class Cpu_page : Page
+    public partial class FileUnlockerPage : Page
     {
-        public Cpu_page()
+        public FileUnlockerPage()
         {
             InitializeComponent();
-        }
-
-        private void InitializeComponent()
-        {
-            throw new NotImplementedException();
         }
     }
 }

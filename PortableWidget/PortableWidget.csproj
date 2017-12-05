@@ -49,6 +49,14 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -96,6 +104,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\CpuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DiskPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\EthernetPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\GpuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RamPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Cpu.cs" />
@@ -103,6 +131,21 @@
     <Compile Include="Models\Ethernet.cs" />
     <Compile Include="Models\Gpu.cs" />
     <Compile Include="Models\Ram.cs" />
+    <Compile Include="Pages\CpuPage.xaml.cs">
+      <DependentUpon>CpuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DiskPage.xaml.cs">
+      <DependentUpon>DiskPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EthernetPage.xaml.cs">
+      <DependentUpon>EthernetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\GpuPage.xaml.cs">
+      <DependentUpon>GpuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RamPage.xaml.cs">
+      <DependentUpon>RamPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
