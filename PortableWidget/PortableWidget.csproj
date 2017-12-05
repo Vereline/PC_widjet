@@ -114,6 +114,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Analizer.cs" />
     <Compile Include="Core\Cpu.cs" />
     <Compile Include="Core\Disk.cs" />
     <Compile Include="Core\Gpu.cs" />
