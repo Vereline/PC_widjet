@@ -5,10 +5,34 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PortableWidget.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="400" d:DesignWidth="600"
       Title="FileUnlockerPage">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" Grid.ColumnSpan="4" Margin="20" Height="30" Width="410" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBox>
+        <Button Grid.Row="0" Grid.Column="4" Margin="20" Height="30" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top">Search</Button>
+
+        <ListBox x:Name="Files" Grid.Row="1" Grid.Column="0" Width="150" Margin="10" BorderBrush="DodgerBlue" BorderThickness="2" />
+        <ListBox x:Name="Processes" Grid.Row="1" Grid.Column="2" Width="150" Margin="10" BorderBrush="DodgerBlue" BorderThickness="2" />
+        <!--<StackPanel Orientation="Vertical">
+
+        </StackPanel>-->
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Grid.Column="0" Orientation="Horizontal">
+            <Button  Margin="20" Height="30" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top">Delete</Button>
+            <Button  Margin="20" Height="30" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top">Rename</Button>
+            <Button  Margin="20" Height="30" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top">Move</Button>
+        </StackPanel>
     </Grid>
 </Page>
