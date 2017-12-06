@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PortableWidget.Core; 
+using PortableWidget.Core;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace PortableWidget
 {
@@ -27,6 +29,13 @@ namespace PortableWidget
             InitializeComponent();
             Analyser = new Analyser(1000);
             Analyser.Start();
+            Closing += this.OnWindowClosing;
+        }
+
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            Analyser.Stop();
+            Process.GetCurrentProcess().Kill();
         }
     }
 }
