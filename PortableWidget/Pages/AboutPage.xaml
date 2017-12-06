@@ -9,7 +9,16 @@
       Title="AboutPage">
 
     <Grid>
-        <Label Margin="10">write about authors</Label>
-        <Label Margin="20">add git address</Label>
+        <StackPanel>
+            <Label FontWeight="Bold">AUTHORS</Label>
+            <Label FontStyle="Italic">Stanko Victoria</Label>
+            <Label FontStyle="Italic">Alexander Loi</Label>
+            <Label FontStyle="Italic">Stepan Savelev</Label>
+            <Label FontWeight="Bold">SOURCE CODE</Label>
+            <TextBlock  FontStyle="Italic">https://github.com/Vereline/PC_widjet</TextBlock>
+            <Button Width="55" Height="30" Margin="10" HorizontalAlignment="Left" Click="Button_Click">Follow</Button>
+        </StackPanel>
+        <!--<Label Margin="10">write about authors</Label>
+        <Label Margin="20">add git address</Label>-->
     </Grid>
 </Page>
