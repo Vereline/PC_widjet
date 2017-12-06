@@ -23,11 +23,7 @@ namespace PortableWidget.Core
         {
             isRun = true;
             _cpuAnalyseThread = new Thread(AnalyseCpu);
-//<<<<<<< Updated upstream
             _ramAnalyseThread = new Thread(AnalyseRam);
-//=======
-            //ramAnalizeThread = new Thread(AnalyseRam);
-//>>>>>>> Stashed changes
             _cpuAnalyseThread.Start();
             _ramAnalyseThread.Start();
             
@@ -55,6 +51,24 @@ namespace PortableWidget.Core
             }
         }
 
+        private void AnalyseRam()
+        {
+            Ram ram = new Ram();
+            while (isRun)
+            {
+                lock (CoreData.ramData)
+                {
+                    CoreData.ramData.Add(new RamModel()
+                    {
+                        Id = ram.GetRamId(),
+                        RamSpeed = ram.GetSpeed(),
+                        Capacity = ram.GetCapacity()
+                    });
+                }
+                Thread.Sleep(timeout);
+            }
+        }
+
         private void AnalyseDisk()
         {
             Disk disk = new Disk();
@@ -72,7 +86,7 @@ namespace PortableWidget.Core
             }
         }
 
-        private void AnalyseRam()
+        private void AnalyseGpu()
         {
         }
     }
