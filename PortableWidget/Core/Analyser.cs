@@ -47,8 +47,8 @@ namespace PortableWidget.Core
                         Id = cpu.GetCpuId(),
                         Speed = cpu.GetCurrentSpeed(),
                         CountOfProcesses = cpu.CountOfProcess(),
-                        //CountOfThreads = cpu.CountOfThreads()
-                        CountOfThreads = (uint)random.Next(100) //for test
+                        CountOfThreads = cpu.CountOfThreads()
+                        //CountOfThreads = (uint)random.Next(100) //for test
                     });
                 }
                 Thread.Sleep(timeout);

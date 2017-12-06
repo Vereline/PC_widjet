@@ -34,11 +34,11 @@ namespace PortableWidget.Core
                 ClockSpeed = (uint)item["CurrentClockSpeed"];
                 MaxClockSpeed = (uint)item["MaxClockSpeed"];
             }
-            Percentage = ClockSpeed / MaxClockSpeed * 100;
+            Percentage = (float)ClockSpeed / MaxClockSpeed * 100;
             return Percentage;
         }
 
-        public uint CountOfThreads()
+        /*public uint CountOfThreads()
         {
             uint ThreadCount = 0;
             var searcher = new ManagementObjectSearcher(
@@ -49,6 +49,17 @@ namespace PortableWidget.Core
 
             }
             return ThreadCount;
+        }*/
+
+        public int CountOfThreads()
+        {
+            int TheadCount = 0;
+            Process[] ArrProcess = Process.GetProcesses();
+            foreach (var process in ArrProcess)
+            {
+                TheadCount += process.Threads.Count;
+            }
+            return TheadCount;
         }
 
         public int CountOfProcess()
