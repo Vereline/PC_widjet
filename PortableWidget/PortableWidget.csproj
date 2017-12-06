@@ -145,6 +145,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ProcessesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\RamPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,6 +174,9 @@
     </Compile>
     <Compile Include="Pages\GpuPage.xaml.cs">
       <DependentUpon>GpuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProcessesPage.xaml.cs">
+      <DependentUpon>ProcessesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\RamPage.xaml.cs">
       <DependentUpon>RamPage.xaml</DependentUpon>

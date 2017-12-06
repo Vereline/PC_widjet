@@ -10,11 +10,8 @@
         <TabControl>
             <TabItem x:Name="Processes" Header="Processes">
                 <TabItem.Content>
-                    <StackPanel>
-                        <Label>
-                            list of processes
-                        </Label>
-                    </StackPanel>
+                    <Frame Source="Pages/ProcessesPage.xaml" Margin="3" Background="White"
+                            BorderBrush="White" BorderThickness="2"></Frame>
                 </TabItem.Content>
             </TabItem>
             <TabItem x:Name="Perfomance" Header="Perfomance">
