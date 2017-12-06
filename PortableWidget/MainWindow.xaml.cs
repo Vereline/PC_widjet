@@ -29,7 +29,7 @@ namespace PortableWidget
         public MainWindow()
         {
             InitializeComponent();
-            Analyser = new Analyser(500);
+            Analyser = new Analyser(1000);
             Analyser.Start();
             Closing += this.OnWindowClosing;
         }
