@@ -22,7 +22,7 @@ namespace PortableWidget.Core
         public void Start()
         {
             isRun = true;
-            cpuAnalizeThread = new Thread(AnalizeCpu);
+            cpuAnalizeThread = new Thread(AnalyzeCpu);
             ramAnalizeThread = new Thread(AnalizeRam);
             cpuAnalizeThread.Start();
             ramAnalizeThread.Start();
@@ -34,7 +34,7 @@ namespace PortableWidget.Core
         }
 
         private void AnalyzeCpu() {
-            Cpu cpu = new Core.Cpu();
+            Cpu cpu = new Cpu();
             while (isRun) {
                 lock (CpuData.cpuData) {
                     CpuData.cpuData.Add(new CpuModel() {
@@ -57,6 +57,10 @@ namespace PortableWidget.Core
                 lock (DiskData.diskData)
                 {
                     DiskData.diskData.Add(new DiskModel() {
+                        Id = disk.GetDiskId(),
+                        Capacity = disk.GetCapacity(),
+                        ReadSpeed = disk.GetReadCurrentSpeed(),
+                        WriteSpeed = disk.GetWriteCurrentSpeed()
                     });
                 }
             }

@@ -118,6 +118,7 @@
     <Compile Include="Core\Cpu.cs" />
     <Compile Include="Core\Disk.cs" />
     <Compile Include="Core\Gpu.cs" />
+    <Compile Include="Core\Ram.cs" />
     <Compile Include="Data\CpuData.cs" />
     <Compile Include="Data\DiskData.cs" />
     <Compile Include="MainWindow.xaml.cs">
