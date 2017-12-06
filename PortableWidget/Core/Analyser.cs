@@ -41,8 +41,8 @@ namespace PortableWidget.Core
             Cpu cpu = new Cpu();
             //Random random = new Random(); // for test
             while (isRun) {
-                lock (CpuData.cpuData) {
-                    CpuData.cpuData.Add(new CpuModel() {
+                lock (CoreData.cpuData) {
+                    CoreData.cpuData.Add(new CpuModel() {
                         UsagePercentage = cpu.GetUsagePercentage(),
                         Id = cpu.GetCpuId(),
                         Speed = cpu.GetCurrentSpeed(),
@@ -60,9 +60,9 @@ namespace PortableWidget.Core
             Disk disk = new Disk();
             while (isRun)
             {
-                lock (DiskData.diskData)
+                lock (CoreData.diskData)
                 {
-                    DiskData.diskData.Add(new DiskModel() {
+                    CoreData.diskData.Add(new DiskModel() {
                         Id = disk.GetDiskId(),
                         Capacity = disk.GetCapacity(),
                         ReadSpeed = disk.GetReadCurrentSpeed(),

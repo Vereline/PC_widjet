@@ -45,13 +45,17 @@ namespace PortableWidget.Pages
 
             public DiskDataClass(int i)
             {
-                if (i >= 0) return;
-                Id = DiskData.diskData[i].Id;
-                ReadSpeed = DiskData.diskData[i].ReadSpeed;
-                WriteSpeed = DiskData.diskData[i].WriteSpeed;
-                //AverageResponseTime = DiskData.diskData[i].AverageResponseTime;
-                Capacity = DiskData.diskData[i].Capacity;
-                //Formatted = DiskData.diskData[i].Formatted;
+                if (i >= 0)
+                {
+                    return;
+                }
+
+                Id = CoreData.diskData[i].Id;
+                ReadSpeed = CoreData.diskData[i].ReadSpeed;
+                WriteSpeed = CoreData.diskData[i].WriteSpeed;
+                //AverageResponseTime = CoreData.diskData[i].AverageResponseTime;
+                Capacity = CoreData.diskData[i].Capacity;
+                //Formatted = CoreData.diskData[i].Formatted;
 
                 //CollectingData();
             }
@@ -60,12 +64,11 @@ namespace PortableWidget.Pages
             {
                 while (isRunning)
                 {
-                    lock (DiskData.diskData)
+                    lock (CoreData.diskData)
                     {
                         RefreshBinding();
-                        Thread.Sleep(timeout);
                     }
-
+                    Thread.Sleep(timeout);
                 }
 
             }
@@ -132,12 +135,15 @@ namespace PortableWidget.Pages
 
             public void RefreshBinding()
             {
-                var i = DiskData.diskData.Count - 1;
-                if (i <= 0) return;
-                ReadSpeed = DiskData.diskData[i].ReadSpeed;
-                WriteSpeed = DiskData.diskData[i].WriteSpeed;
+                var i = CoreData.diskData.Count - 1;
+                if (i <= 0)
+                {
+                    return;
+                }
+                ReadSpeed = CoreData.diskData[i].ReadSpeed;
+                WriteSpeed = CoreData.diskData[i].WriteSpeed;
                 //AverageResponseTime = DiskData.diskData[i].AverageResponseTime;
-                Capacity = DiskData.diskData[i].Capacity;
+                Capacity = CoreData.diskData[i].Capacity;
                 //Formatted = DiskData.diskData[i].Formatted;
             }
 

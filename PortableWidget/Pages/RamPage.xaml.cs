@@ -47,16 +47,20 @@ namespace PortableWidget.Pages
 
             public RamDataClass(int i)
             {
-                if (i >= 0) return;
-                Id = RamData.ramData[i].Id;
-                RamSpeed = RamData.ramData[i].RamSpeed;
-                MemoryInUse = RamData.ramData[i].MemoryInUse;
-                MemoryCached = RamData.ramData[i].MemoryCached;
-                Capacity = RamData.ramData[i].Capacity;
-                MemoryCommited = RamData.ramData[i].MemoryCommited;
-                SlotsUsed = RamData.ramData[i].SlotsUsed;
-                NonPagedPool = RamData.ramData[i].NonPagedPool;
-                PagedPool = RamData.ramData[i].PagedPool;
+                if (i >= 0)
+                {
+                    return;
+                }
+
+                Id = CoreData.ramData[i].Id;
+                RamSpeed = CoreData.ramData[i].RamSpeed;
+                MemoryInUse = CoreData.ramData[i].MemoryInUse;
+                MemoryCached = CoreData.ramData[i].MemoryCached;
+                Capacity = CoreData.ramData[i].Capacity;
+                MemoryCommited = CoreData.ramData[i].MemoryCommited;
+                SlotsUsed = CoreData.ramData[i].SlotsUsed;
+                NonPagedPool = CoreData.ramData[i].NonPagedPool;
+                PagedPool = CoreData.ramData[i].PagedPool;
 
                 //CollectingData();
             }
@@ -65,12 +69,11 @@ namespace PortableWidget.Pages
             {
                 while (isRunning)
                 {
-                    lock (RamData.ramData)
+                    lock (CoreData.ramData)
                     {
                         RefreshBinding();
-                        Thread.Sleep(timeout);
                     }
-
+                    Thread.Sleep(timeout);
                 }
 
             }
@@ -167,17 +170,21 @@ namespace PortableWidget.Pages
 
             public void RefreshBinding()
             {
-                var i = RamData.ramData.Count - 1;
-                if (i <= 0) return;
-                Id = RamData.ramData[i].Id;
-                RamSpeed = RamData.ramData[i].RamSpeed;
-                MemoryInUse = RamData.ramData[i].MemoryInUse;
-                MemoryCached = RamData.ramData[i].MemoryCached;
-                Capacity = RamData.ramData[i].Capacity;
-                MemoryCommited = RamData.ramData[i].MemoryCommited;
-                SlotsUsed = RamData.ramData[i].SlotsUsed;
-                NonPagedPool = RamData.ramData[i].NonPagedPool;
-                PagedPool = RamData.ramData[i].PagedPool;
+                var i = CoreData.ramData.Count - 1;
+                if (i <= 0)
+                {
+                    return;
+                }
+
+                Id = CoreData.ramData[i].Id;
+                RamSpeed = CoreData.ramData[i].RamSpeed;
+                MemoryInUse = CoreData.ramData[i].MemoryInUse;
+                MemoryCached = CoreData.ramData[i].MemoryCached;
+                Capacity = CoreData.ramData[i].Capacity;
+                MemoryCommited = CoreData.ramData[i].MemoryCommited;
+                SlotsUsed = CoreData.ramData[i].SlotsUsed;
+                NonPagedPool = CoreData.ramData[i].NonPagedPool;
+                PagedPool = CoreData.ramData[i].PagedPool;
             }
 
             public event PropertyChangedEventHandler PropertyChanged;

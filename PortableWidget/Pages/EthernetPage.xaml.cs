@@ -48,19 +48,20 @@ namespace PortableWidget.Pages
 
             public EthernetDataClass(int i)
             {
-                if (i >= 0) return;
-                Id = EthernetData.ethernetData[i].Id;
-                SendPerSecond = EthernetData.ethernetData[i].SendPerSecond;
-                SSID = EthernetData.ethernetData[i].SSID;
-                AdapterName = EthernetData.ethernetData[i].AdapterName;
-                ConnectionType = EthernetData.ethernetData[i].ConnectionType;
-                SignalStrength = EthernetData.ethernetData[i].SignalStrength;
-                IPv4 = EthernetData.ethernetData[i].IPv4;
-                IPv6 = EthernetData.ethernetData[i].IPv6;
-                ReceivePerSecond = EthernetData.ethernetData[i].ReceivePerSecond;
+                if (i >= 0)
+                {
+                    return;
+                }
 
-
-
+                Id = CoreData.ethernetData[i].Id;
+                SendPerSecond = CoreData.ethernetData[i].SendPerSecond;
+                SSID = CoreData.ethernetData[i].SSID;
+                AdapterName = CoreData.ethernetData[i].AdapterName;
+                ConnectionType = CoreData.ethernetData[i].ConnectionType;
+                SignalStrength = CoreData.ethernetData[i].SignalStrength;
+                IPv4 = CoreData.ethernetData[i].IPv4;
+                IPv6 = CoreData.ethernetData[i].IPv6;
+                ReceivePerSecond = CoreData.ethernetData[i].ReceivePerSecond;
                 //CollectingData();
             }
 
@@ -68,12 +69,11 @@ namespace PortableWidget.Pages
             {
                 while (isRunning)
                 {
-                    lock (EthernetData.ethernetData)
+                    lock (CoreData.ethernetData)
                     {
                         RefreshBinding();
-                        Thread.Sleep(timeout);
                     }
-
+                    Thread.Sleep(timeout);
                 }
 
             }
@@ -171,17 +171,21 @@ namespace PortableWidget.Pages
 
             public void RefreshBinding()
             {
-                var i = EthernetData.ethernetData.Count - 1;
-                if (i <= 0) return;
-                Id = EthernetData.ethernetData[i].Id;
-                SendPerSecond = EthernetData.ethernetData[i].SendPerSecond;
-                SSID = EthernetData.ethernetData[i].SSID;
-                AdapterName = EthernetData.ethernetData[i].AdapterName;
-                ConnectionType = EthernetData.ethernetData[i].ConnectionType;
-                SignalStrength = EthernetData.ethernetData[i].SignalStrength;
-                IPv4 = EthernetData.ethernetData[i].IPv4;
-                IPv6 = EthernetData.ethernetData[i].IPv6;
-                ReceivePerSecond = EthernetData.ethernetData[i].ReceivePerSecond;
+                var i = CoreData.ethernetData.Count - 1;
+                if (i <= 0)
+                {
+                    return;
+                }
+
+                Id = CoreData.ethernetData[i].Id;
+                SendPerSecond = CoreData.ethernetData[i].SendPerSecond;
+                SSID = CoreData.ethernetData[i].SSID;
+                AdapterName = CoreData.ethernetData[i].AdapterName;
+                ConnectionType = CoreData.ethernetData[i].ConnectionType;
+                SignalStrength = CoreData.ethernetData[i].SignalStrength;
+                IPv4 = CoreData.ethernetData[i].IPv4;
+                IPv6 = CoreData.ethernetData[i].IPv6;
+                ReceivePerSecond = CoreData.ethernetData[i].ReceivePerSecond;
             }
 
             public event PropertyChangedEventHandler PropertyChanged;

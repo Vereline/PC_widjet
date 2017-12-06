@@ -44,12 +44,16 @@ namespace PortableWidget.Pages
 
             public CpuDataClass(int i)
             {
-                if (i >= 0) return;
-                Id = CpuData.cpuData[i].Id;
-                UsagePercentage = CpuData.cpuData[i].UsagePercentage;
-                Speed = CpuData.cpuData[i].Speed;
-                CountOfProcesses = CpuData.cpuData[i].CountOfProcesses;
-                CountOfThreads = CpuData.cpuData[i].CountOfThreads;
+                if (i >= 0)
+                {
+                    return;
+                }
+
+                Id = CoreData.cpuData[i].Id;
+                UsagePercentage = CoreData.cpuData[i].UsagePercentage;
+                Speed = CoreData.cpuData[i].Speed;
+                CountOfProcesses = CoreData.cpuData[i].CountOfProcesses;
+                CountOfThreads = CoreData.cpuData[i].CountOfThreads;
 
                 //CollectingData();
             }
@@ -58,12 +62,11 @@ namespace PortableWidget.Pages
             {
                 while (isRunning)
                 {
-                    lock (CpuData.cpuData)
+                    lock (CoreData.cpuData)
                     {
                         RefreshBinding();
-                        Thread.Sleep(timeout);
                     }
-
+                    Thread.Sleep(timeout);
                 }
                 
             }
@@ -120,13 +123,17 @@ namespace PortableWidget.Pages
 
             public void RefreshBinding()
             {
-                var i = CpuData.cpuData.Count-1;
-                if (i <= 0) return;
-                Id = CpuData.cpuData[i].Id;
-                UsagePercentage = CpuData.cpuData[i].UsagePercentage;
-                Speed = CpuData.cpuData[i].Speed;
-                CountOfProcesses = CpuData.cpuData[i].CountOfProcesses;
-                CountOfThreads = CpuData.cpuData[i].CountOfThreads;
+                var i = CoreData.cpuData.Count-1;
+                if (i <= 0)
+                {
+                    return;
+                }
+
+                Id = CoreData.cpuData[i].Id;
+                UsagePercentage = CoreData.cpuData[i].UsagePercentage;
+                Speed = CoreData.cpuData[i].Speed;
+                CountOfProcesses = CoreData.cpuData[i].CountOfProcesses;
+                CountOfThreads = CoreData.cpuData[i].CountOfThreads;
             }
 
             public event PropertyChangedEventHandler PropertyChanged;
@@ -139,9 +146,9 @@ namespace PortableWidget.Pages
 
 
         private CpuDataClass _cpuDataClass;
+
         public CpuPage()
         {
-
             InitializeComponent();
             _cpuDataClass = new CpuDataClass(0);
             ContentRoot.DataContext = _cpuDataClass;

@@ -24,7 +24,7 @@ namespace PortableWidget.Pages
     /// </summary>
     public partial class GpuPage : Page
     {
-        public class GpuDataClass : INotifyPropertyChanged
+        public class CoreDataClass : INotifyPropertyChanged
         {
             private string _id; 
             private string _gpuType; 
@@ -43,16 +43,19 @@ namespace PortableWidget.Pages
             }
 
 
-            public GpuDataClass(int i)
+            public CoreDataClass(int i)
             {
-                if (i >= 0) return;
-                Id = GpuData.gpuData[i].Id;
-                GpuType = GpuData.gpuData[i].GpuType;
-                Temperature = GpuData.gpuData[i].Temperature;
-                Speed = GpuData.gpuData[i].Speed;
-                MemoryUsage = GpuData.gpuData[i].MemoryUsage;
-                CountOfThreads = GpuData.gpuData[i].CountOfThreads;
-                FanDutyPercentage = GpuData.gpuData[i].FanDutyPercentage;
+                if (i >= 0)
+                {
+                    return;
+                }
+                Id = CoreData.gpuData[i].Id;
+                GpuType = CoreData.gpuData[i].GpuType;
+                Temperature = CoreData.gpuData[i].Temperature;
+                Speed = CoreData.gpuData[i].Speed;
+                MemoryUsage = CoreData.gpuData[i].MemoryUsage;
+                CountOfThreads = CoreData.gpuData[i].CountOfThreads;
+                FanDutyPercentage = CoreData.gpuData[i].FanDutyPercentage;
 
 
                 //CollectingData();
@@ -62,12 +65,11 @@ namespace PortableWidget.Pages
             {
                 while (isRunning)
                 {
-                    lock (GpuData.gpuData)
+                    lock (CoreData.gpuData)
                     {
                         RefreshBinding();
-                        Thread.Sleep(timeout);
                     }
-
+                    Thread.Sleep(timeout);
                 }
 
             }
@@ -145,15 +147,19 @@ namespace PortableWidget.Pages
 
             public void RefreshBinding()
             {
-                var i = GpuData.gpuData.Count - 1;
-                if (i <= 0) return;
-                Id = GpuData.gpuData[i].Id;
-                GpuType = GpuData.gpuData[i].GpuType;
-                Temperature = GpuData.gpuData[i].Temperature;
-                Speed = GpuData.gpuData[i].Speed;
-                MemoryUsage = GpuData.gpuData[i].MemoryUsage;
-                CountOfThreads = GpuData.gpuData[i].CountOfThreads;
-                FanDutyPercentage = GpuData.gpuData[i].FanDutyPercentage;
+                var i = CoreData.gpuData.Count - 1;
+                if (i <= 0)
+                {
+                    return;
+                }
+
+                Id = CoreData.gpuData[i].Id;
+                GpuType = CoreData.gpuData[i].GpuType;
+                Temperature = CoreData.gpuData[i].Temperature;
+                Speed = CoreData.gpuData[i].Speed;
+                MemoryUsage = CoreData.gpuData[i].MemoryUsage;
+                CountOfThreads = CoreData.gpuData[i].CountOfThreads;
+                FanDutyPercentage = CoreData.gpuData[i].FanDutyPercentage;
             }
 
             public event PropertyChangedEventHandler PropertyChanged;
@@ -165,15 +171,15 @@ namespace PortableWidget.Pages
         }
 
 
-        private GpuDataClass _GpuDataClass;
+        private CoreDataClass _CoreDataClass;
 
         public GpuPage()
         {
             InitializeComponent();
-            _GpuDataClass = new GpuDataClass(0);
-            ContentRoot.DataContext = _GpuDataClass;
-            _GpuDataClass.getDataThread = new Thread(_GpuDataClass.CollectingData);
-            _GpuDataClass.getDataThread.Start();
+            _CoreDataClass = new CoreDataClass(0);
+            ContentRoot.DataContext = _CoreDataClass;
+            _CoreDataClass.getDataThread = new Thread(_CoreDataClass.CollectingData);
+            _CoreDataClass.getDataThread.Start();
         }
     }
 }
