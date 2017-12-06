@@ -60,7 +60,7 @@ namespace PortableWidget.Pages
             {
                 while (isRunning)
                 {
-                    lock (CpuData.cpuData)
+                    lock (DiskData.diskData)
                     {
                         RefreshBinding();
                         Thread.Sleep(timeout);
