@@ -38,7 +38,7 @@ namespace PortableWidget.Core
             return Percentage;
         }
 
-        public uint CpuntOfThreads()
+        public uint CountOfThreads()
         {
             uint ThreadCount = 0;
             var searcher = new ManagementObjectSearcher(
@@ -51,7 +51,7 @@ namespace PortableWidget.Core
             return ThreadCount;
         }
 
-        public int CpuntOfProcess()
+        public int CountOfProcess()
         {
             Process[] ArrProcesses = Process.GetProcesses();
             int ProcessCount = ArrProcesses.Length;

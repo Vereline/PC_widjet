@@ -15,8 +15,8 @@ namespace PortableWidget.Models
         public string Id { get; set; }
         public float ReadSpeed { get; set; }
         public float WriteSpeed { get; set; }
-        public float AverageResponseTime { get; set; }
-        public int Capacity { get; set; }
-        public int Formatted { get; set; }
+        //public float AverageResponseTime { get; set; } // it is for some time. I'll turn it back later
+        public ulong Capacity { get; set; }
+        //public int Formatted { get; set; } it is too
     }
 }

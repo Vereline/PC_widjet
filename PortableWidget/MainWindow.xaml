@@ -5,8 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PortableWidget"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="500" Width="800">
     <Grid>
-        
+        <TabControl>
+            <TabItem x:Name="Processes" Header="Processes">
+                <TabItem.Content>
+                    <StackPanel>
+                        <Label>
+                            list of processes
+                        </Label>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="Perfomance" Header="Perfomance">
+                <TabControl Margin="5" TabStripPlacement="Left" >
+                    <TabItem x:Name="CpuPage" Header="Cpu">
+                        <TabItem.Content>
+                            <Frame Source="Pages/CpuPage.xaml" Margin="3" Background="White"
+                            BorderBrush="White" BorderThickness="2"></Frame>
+                        </TabItem.Content>
+                    </TabItem>
+                    <TabItem x:Name="GpuPage" Header="Gpu">
+                        <TabItem.Content>
+                            <Frame Source="Pages/GpuPage.xaml" Margin="3" Background="White"
+                            BorderBrush="White" BorderThickness="2"></Frame>
+                        </TabItem.Content>
+                    </TabItem>
+                    <TabItem x:Name="RamPage" Header="Ram">
+                        <TabItem.Content>
+                            <Frame Source="Pages/RamPage.xaml" Margin="3" Background="White"
+                            BorderBrush="White" BorderThickness="2"></Frame>
+                        </TabItem.Content>
+                    </TabItem>
+                    <TabItem x:Name="DiscPage" Header="Disc">
+                        <TabItem.Content>
+                            <Frame Source="Pages/DiskPage.xaml" Margin="3" Background="White"
+                            BorderBrush="White" BorderThickness="2"></Frame>
+                        </TabItem.Content>
+                    </TabItem>
+                    <TabItem x:Name="EthernetPage" Header="Ethernet">
+                        <TabItem.Content>
+                            <Frame Source="Pages/EthernetPage.xaml" Margin="3" Background="White"
+                            BorderBrush="White" BorderThickness="2"></Frame>
+                        </TabItem.Content>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem x:Name="Recomendations" Header="Recomendations">
+                
+            </TabItem>
+            <TabItem x:Name="FileUnlocker" Header="File Unlocker">
+                <TabItem.Content>
+                    <Frame Source="Pages/FileUnlockerPage.xaml" Margin="3" Background="White"
+                            BorderBrush="White" BorderThickness="2"></Frame>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="Authors" Header="Authors">
+
+            </TabItem>
+            <TabItem x:Name="Settings" Header="Settings">
+                <Label> manage here changing color or day/night mode</Label>
+            </TabItem>
+        </TabControl>
+        <!--<Frame Source="Pages/CpuPage.xaml" Margin="3" Background="SlateGray"
+               BorderBrush="Gray" BorderThickness="2"></Frame>-->
     </Grid>
 </Window>

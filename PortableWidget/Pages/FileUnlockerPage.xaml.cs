@@ -12,21 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PortableWidget.Core; 
 
-namespace PortableWidget
+namespace PortableWidget.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для FileUnlockerPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FileUnlockerPage : Page
     {
-        public Analyser Analyser;
-        public MainWindow()
+        public FileUnlockerPage()
         {
             InitializeComponent();
-            Analyser = new Analyser(1000);
-            Analyser.Start();
         }
     }
 }
