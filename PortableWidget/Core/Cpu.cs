@@ -10,6 +10,8 @@ namespace PortableWidget.Core
 {
     public class Cpu
     {
+        PerformanceCounter ProcessorUtilization = new PerformanceCounter("Processor Information", "% Processor Utility", "_Total");
+
         public uint GetCurrentSpeed()
         {
             uint clockSpeed = 0;
@@ -22,20 +24,16 @@ namespace PortableWidget.Core
             return clockSpeed;
         }
 
+        //public uint GetCurrentSpeed()
+        //{
+
+        //}
+
         public float GetUsagePercentage()
         {
-            uint ClockSpeed = 0;
-            uint MaxClockSpeed = 0;
-            float Percentage = 0;
-            var searcher = new ManagementObjectSearcher(
-            "select * from Win32_Processor");
-            foreach (var item in searcher.Get())
-            {
-                ClockSpeed = (uint)item["CurrentClockSpeed"];
-                MaxClockSpeed = (uint)item["MaxClockSpeed"];
-            }
-            Percentage = (float)ClockSpeed / MaxClockSpeed * 100;
-            return Percentage;
+            float tmp = ProcessorUtilization.NextValue();
+            var ProcUtility = (float)(Math.Round(tmp, 1));
+            return ProcUtility;
         }
 
         /*public uint CountOfThreads()

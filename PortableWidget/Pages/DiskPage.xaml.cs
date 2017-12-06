@@ -53,7 +53,7 @@ namespace PortableWidget.Pages
                 Id = CoreData.diskData[i].Id;
                 ReadSpeed = CoreData.diskData[i].ReadSpeed;
                 WriteSpeed = CoreData.diskData[i].WriteSpeed;
-                //AverageResponseTime = CoreData.diskData[i].AverageResponseTime;
+                AverageResponseTime = CoreData.diskData[i].AverageResponseTime;
                 Capacity = CoreData.diskData[i].Capacity;
                 //Formatted = CoreData.diskData[i].Formatted;
 
@@ -98,8 +98,8 @@ namespace PortableWidget.Pages
                 get { return _writeSpeed; }
                 set
                 {
-                    _writeSpeed = value;
-                    OnPropertyChanged();
+                        _writeSpeed = value;
+                        OnPropertyChanged();
                 }
             }
 
@@ -140,9 +140,10 @@ namespace PortableWidget.Pages
                 {
                     return;
                 }
+                Id = CoreData.diskData[i].Id;
                 ReadSpeed = CoreData.diskData[i].ReadSpeed;
                 WriteSpeed = CoreData.diskData[i].WriteSpeed;
-                //AverageResponseTime = DiskData.diskData[i].AverageResponseTime;
+                AverageResponseTime = CoreData.diskData[i].AverageResponseTime;
                 Capacity = CoreData.diskData[i].Capacity;
                 //Formatted = DiskData.diskData[i].Formatted;
             }
