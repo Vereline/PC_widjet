@@ -8,24 +8,28 @@ using PortableWidget.Data;
 
 namespace PortableWidget.Core
 {
-    public class Analyzer
+    public class Analyser
     {
         bool isRun = true;
         int timeout = 1000;
-        Thread cpuAnalizeThread;
-        Thread ramAnalizeThread;
+        Thread _cpuAnalyseThread;
+        Thread _ramAnalyseThread;
 
-        public Analyzer(int timeout) {
+        public Analyser(int timeout) {
             this.timeout = timeout;
         }
 
         public void Start()
         {
             isRun = true;
-            cpuAnalizeThread = new Thread(AnalyzeCpu);
-            ramAnalizeThread = new Thread(AnalizeRam);
-            cpuAnalizeThread.Start();
-            ramAnalizeThread.Start();
+            _cpuAnalyseThread = new Thread(AnalyseCpu);
+//<<<<<<< Updated upstream
+            _ramAnalyseThread = new Thread(AnalyseRam);
+//=======
+            //ramAnalizeThread = new Thread(AnalyzeRam);
+//>>>>>>> Stashed changes
+            _cpuAnalyseThread.Start();
+            _ramAnalyseThread.Start();
             
         }
 
@@ -33,30 +37,32 @@ namespace PortableWidget.Core
             isRun = false;
         }
 
-        private void AnalyzeCpu() {
+        private void AnalyseCpu() {
             Cpu cpu = new Cpu();
+            //Random random = new Random(); // for test
             while (isRun) {
-                lock (CpuData.cpuData) {
-                    CpuData.cpuData.Add(new CpuModel() {
+                lock (CoreData.cpuData) {
+                    CoreData.cpuData.Add(new CpuModel() {
                         UsagePercentage = cpu.GetUsagePercentage(),
                         Id = cpu.GetCpuId(),
                         Speed = cpu.GetCurrentSpeed(),
                         CountOfProcesses = cpu.CountOfProcess(),
                         CountOfThreads = cpu.CountOfThreads()
+                        //CountOfThreads = (uint)random.Next(100) for test
                     });
                 }
                 Thread.Sleep(timeout);
             }
         }
 
-        private void AnalyzeDisk()
+        private void AnalyseDisk()
         {
             Disk disk = new Disk();
             while (isRun)
             {
-                lock (DiskData.diskData)
+                lock (CoreData.diskData)
                 {
-                    DiskData.diskData.Add(new DiskModel() {
+                    CoreData.diskData.Add(new DiskModel() {
                         Id = disk.GetDiskId(),
                         Capacity = disk.GetCapacity(),
                         ReadSpeed = disk.GetReadCurrentSpeed(),
@@ -66,7 +72,7 @@ namespace PortableWidget.Core
             }
         }
 
-        private void AnalizeRam()
+        private void AnalyseRam()
         {
         }
     }

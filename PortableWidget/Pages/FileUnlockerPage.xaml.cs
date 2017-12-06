@@ -12,6 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using PortableWidget.Core;
+using System.Diagnostics;
+using System.IO;
+
 
 namespace PortableWidget.Pages
 {
@@ -20,9 +25,48 @@ namespace PortableWidget.Pages
     /// </summary>
     public partial class FileUnlockerPage : Page
     {
+        private String fileName;
+        private List<Process> processList;
+
         public FileUnlockerPage()
         {
             InitializeComponent();
+        }
+
+        private void OnSearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Processes.ItemsSource = null;
+                Processes.ItemsSource = GetBindList(openFileDialog.FileName);
+                fileField.Text = fileName;
+            }
+        }
+
+        private void OnKillBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (processList == null) {
+                return;
+            }
+
+            foreach (var item in processList) {
+                item.Kill();
+                item.WaitForExit(1000);
+            }
+           
+            Processes.ItemsSource = null;
+            Processes.ItemsSource = GetBindList(fileName);
+        }
+
+        private List<string> GetBindList(string name) {
+            List<string> bindList = new List<string>();
+            processList = Unlocker.GetProcessesLockingFile(name);
+            foreach (var item in processList)
+            {
+                bindList.Add(String.Format("Id: {0} | Name: {1} ", item.Id, item.ToString()));
+            }
+            return bindList;
         }
     }
 }
