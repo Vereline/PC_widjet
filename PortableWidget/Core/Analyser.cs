@@ -14,6 +14,7 @@ namespace PortableWidget.Core
         int timeout = 1000;
         Thread _cpuAnalyseThread;
         Thread _ramAnalyseThread;
+        Thread _diskAnalyseThread;
 
         public Analyser(int timeout) {
             this.timeout = timeout;
@@ -24,8 +25,10 @@ namespace PortableWidget.Core
             isRun = true;
             _cpuAnalyseThread = new Thread(AnalyseCpu);
             _ramAnalyseThread = new Thread(AnalyseRam);
+            _diskAnalyseThread = new Thread(AnalyseDisk);
             _cpuAnalyseThread.Start();
             _ramAnalyseThread.Start();
+            _diskAnalyseThread.Start();
             
         }
 
@@ -86,6 +89,11 @@ namespace PortableWidget.Core
             }
         }
 
+        private void AnalyseProcessses()
+        {
+
+        }
+        
         private void AnalyseGpu()
         {
         }
