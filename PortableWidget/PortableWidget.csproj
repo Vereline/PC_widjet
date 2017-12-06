@@ -118,6 +118,7 @@
     <Compile Include="Core\Cpu.cs" />
     <Compile Include="Core\Disk.cs" />
     <Compile Include="Core\Gpu.cs" />
+    <Compile Include="Core\Processes.cs" />
     <Compile Include="Core\Ram.cs" />
     <Compile Include="Core\Unlocker.cs" />
     <Compile Include="Data\CoreData.cs" />
@@ -145,6 +146,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ProcessesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\RamPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -155,6 +160,7 @@
     <Compile Include="Models\Disk.cs" />
     <Compile Include="Models\Ethernet.cs" />
     <Compile Include="Models\Gpu.cs" />
+    <Compile Include="Models\Process.cs" />
     <Compile Include="Models\Ram.cs" />
     <Compile Include="Pages\CpuPage.xaml.cs">
       <DependentUpon>CpuPage.xaml</DependentUpon>
@@ -170,6 +176,9 @@
     </Compile>
     <Compile Include="Pages\GpuPage.xaml.cs">
       <DependentUpon>GpuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProcessesPage.xaml.cs">
+      <DependentUpon>ProcessesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\RamPage.xaml.cs">
       <DependentUpon>RamPage.xaml</DependentUpon>
@@ -208,6 +217,12 @@
   <ItemGroup>
     <Folder Include="Databases\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dll\Aga.Controls.dll" />
+    <Content Include="Dll\OpenHardwareMonitorLib.dll" />
+    <Content Include="Dll\OxyPlot.dll" />
+    <Content Include="Dll\OxyPlot.WindowsForms.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets')" />

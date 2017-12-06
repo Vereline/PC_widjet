@@ -26,7 +26,7 @@ namespace PortableWidget.Core
 //<<<<<<< Updated upstream
             _ramAnalyseThread = new Thread(AnalyseRam);
 //=======
-            //ramAnalizeThread = new Thread(AnalyzeRam);
+            //ramAnalizeThread = new Thread(AnalyseRam);
 //>>>>>>> Stashed changes
             _cpuAnalyseThread.Start();
             _ramAnalyseThread.Start();
@@ -39,7 +39,7 @@ namespace PortableWidget.Core
 
         private void AnalyseCpu() {
             Cpu cpu = new Cpu();
-            //Random random = new Random(); // for test
+            Random random = new Random(); // for test
             while (isRun) {
                 lock (CoreData.cpuData) {
                     CoreData.cpuData.Add(new CpuModel() {
@@ -48,7 +48,7 @@ namespace PortableWidget.Core
                         Speed = cpu.GetCurrentSpeed(),
                         CountOfProcesses = cpu.CountOfProcess(),
                         CountOfThreads = cpu.CountOfThreads()
-                        //CountOfThreads = (uint)random.Next(100) for test
+                        //CountOfThreads = (uint)random.Next(100) //for test
                     });
                 }
                 Thread.Sleep(timeout);

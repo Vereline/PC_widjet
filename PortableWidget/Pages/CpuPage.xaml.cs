@@ -31,7 +31,7 @@ namespace PortableWidget.Pages
             private float _usagePercentage;
             private float _speed;
             private int _countOfProcesses;
-            private uint _countOfThreads;
+            private int _countOfThreads;
             private bool isRunning = true;
             int timeout = 1000;
             public Thread getDataThread;
@@ -111,7 +111,7 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public uint CountOfThreads
+            public int CountOfThreads
             {
                 get { return _countOfThreads; }
                 set
