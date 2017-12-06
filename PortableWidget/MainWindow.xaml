@@ -54,7 +54,7 @@
             <TabItem x:Name="Recomendations" Header="Recomendations">
                 
             </TabItem>
-            <TabItem x:Name="FileUnlocker" Header="File Unlocker">
+            <TabItem x:Name="FileUnlocker" Header="Unlocker">
                 <TabItem.Content>
                     <Frame Source="Pages/FileUnlockerPage.xaml" Margin="3" Background="White"
                             BorderBrush="White" BorderThickness="2"></Frame>

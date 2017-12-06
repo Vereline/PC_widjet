@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using PortableWidget.Core;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 
 namespace PortableWidget
 {
@@ -24,6 +25,7 @@ namespace PortableWidget
     public partial class MainWindow : Window
     {
         public Analyser Analyser;
+
         public MainWindow()
         {
             InitializeComponent();

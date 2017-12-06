@@ -119,6 +119,7 @@
     <Compile Include="Core\Disk.cs" />
     <Compile Include="Core\Gpu.cs" />
     <Compile Include="Core\Ram.cs" />
+    <Compile Include="Core\Unlocker.cs" />
     <Compile Include="Data\CoreData.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
