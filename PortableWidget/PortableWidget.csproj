@@ -121,6 +121,9 @@
     <Compile Include="Core\Ram.cs" />
     <Compile Include="Data\CpuData.cs" />
     <Compile Include="Data\DiskData.cs" />
+    <Compile Include="Data\EthernetData.cs" />
+    <Compile Include="Data\GpuData.cs" />
+    <Compile Include="Data\RamData.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
