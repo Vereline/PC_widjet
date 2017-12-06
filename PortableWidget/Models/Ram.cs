@@ -21,5 +21,6 @@ namespace PortableWidget.Models
         public int SlotsUsed { get; set; }
         public int PanedPool { get; set; }
         public int NonPagedPool { get; set; }
+        public UInt64 Capacity { get; set; }
     }
 }
