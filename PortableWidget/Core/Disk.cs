@@ -36,29 +36,29 @@ namespace PortableWidget.Core
             return DiskCapacity;
         }
 
-        public long GetReadCurrentSpeed()
+        public float GetReadCurrentSpeed()
         {
-            long ReadSpeed = 0;
+            float ReadSpeed = 0;
             PerformanceCounter ReadCounter = new PerformanceCounter();
 
             ReadCounter.CategoryName = "PhysicalDisk";
-            ReadCounter.CounterName = "Disk Reads/sec";
+            ReadCounter.CounterName = "Disk Read Bytes/sec";
             ReadCounter.InstanceName = "_Total";
 
-            ReadSpeed = ReadCounter.RawValue;
-            return ReadSpeed;
+            ReadSpeed = ReadCounter.NextValue();
+            return ReadSpeed / 1024;
         }
 
-        public long GetWriteCurrentSpeed()
+        public float GetWriteCurrentSpeed()
         {
-            long WriteSpeed = 0;
-            PerformanceCounter WriteCounter = new PerformanceCounter();
+            float WriteSpeed = 0;
+            PerformanceCounter WriteCounter = new PerformanceCounter("PhysicalDisk", "Disk Read Bytes/sec", "_Total");
 
-            WriteCounter.CategoryName = "PhysicalDisk";
-            WriteCounter.CounterName = "Disk Reads/sec";
-            WriteCounter.InstanceName = "_Total";
+            //WriteCounter.CategoryName = "PhysicalDisk";
+            //WriteCounter.CounterName = "Disk Write Bytes/sec";
+            //WriteCounter.InstanceName = "_Total";
 
-            WriteSpeed = WriteCounter.RawValue;
+            WriteSpeed = WriteCounter.NextValue();
             return WriteSpeed;
         }
 
