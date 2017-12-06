@@ -7,9 +7,10 @@
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="600"
-      Title="CpuPage">
+      Title="CpuPage"
+      x:Name="CPage">
 
-    <Grid>
+    <Grid x:Name="ContentRoot">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -19,7 +20,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <lvc:CartesianChart Grid.Row="0" Grid.ColumnSpan="3" Margin="10" Series="{Binding SeriesCollection}" LegendLocation="Right" >
+        <lvc:CartesianChart Grid.Row="0" Grid.ColumnSpan="3" Margin="10" Series="{Binding SeriesCollection}" LegendLocation="Right" Loaded="CartesianChart_Loaded" >
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Using %" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
@@ -38,7 +39,7 @@
              Id
             </TextBlock>
             <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-             User Persentage
+             UsagePercentage
             </TextBlock>
             <!--<TextBlock Height="20" Width="110" Background="White" TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
              Temperature
@@ -54,20 +55,20 @@
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1" Margin="5,5,5,0" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Id}">
-                100
+            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Id }">
+                
             </TextBlock>
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding UserPersentage}">
-                100
+            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding UsagePercentage}">
+                
             </TextBlock>
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Speed}">
-                100
+                
             </TextBlock>
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding CountOfProcesses}">
-                100
+                
             </TextBlock>
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding CountOfThreads}">
-                100
+                
             </TextBlock>
         </StackPanel>
 

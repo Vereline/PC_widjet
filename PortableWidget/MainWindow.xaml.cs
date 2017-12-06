@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PortableWidget.Core; 
 
 namespace PortableWidget
 {
@@ -20,9 +21,12 @@ namespace PortableWidget
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Analyser Analyser;
         public MainWindow()
         {
             InitializeComponent();
+            Analyser = new Analyser(1000);
+            Analyser.Start();
         }
     }
 }
