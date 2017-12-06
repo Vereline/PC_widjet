@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,7 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PortableWidget.Core; 
+using PortableWidget.Core;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 
 namespace PortableWidget
 {
@@ -22,11 +25,19 @@ namespace PortableWidget
     public partial class MainWindow : Window
     {
         public Analyser Analyser;
+
         public MainWindow()
         {
             InitializeComponent();
             Analyser = new Analyser(1000);
             Analyser.Start();
+            Closing += this.OnWindowClosing;
+        }
+
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            Analyser.Stop();
+            Process.GetCurrentProcess().Kill();
         }
     }
 }

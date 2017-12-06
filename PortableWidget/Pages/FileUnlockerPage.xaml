@@ -21,18 +21,15 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Grid.ColumnSpan="4" Margin="20" Height="30" Width="410" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBox>
-        <Button Grid.Row="0" Grid.Column="4" Margin="20" Height="30" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top">Search</Button>
+        <TextBox x:Name="fileField" IsReadOnly="True" Grid.Row="0" Grid.ColumnSpan="4" Margin="20" Height="30" Width="410" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBox>
+        <Button Grid.Row="0" Grid.Column="4" Margin="20" Height="30" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnSearchBtn_Click">Search</Button>
 
-        <ListBox x:Name="Files" Grid.Row="1" Grid.Column="0" Width="150" Margin="10" BorderBrush="DodgerBlue" BorderThickness="2" />
-        <ListBox x:Name="Processes" Grid.Row="1" Grid.Column="2" Width="150" Margin="10" BorderBrush="DodgerBlue" BorderThickness="2" />
+        <ListBox x:Name="Processes" Grid.Row="1" Grid.ColumnSpan="5" Grid.Column="0" Margin="10" BorderBrush="DodgerBlue" BorderThickness="2" />
         <!--<StackPanel Orientation="Vertical">
 
         </StackPanel>-->
         <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Grid.Column="0" Orientation="Horizontal">
-            <Button  Margin="20" Height="30" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top">Delete</Button>
-            <Button  Margin="20" Height="30" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top">Rename</Button>
-            <Button  Margin="20" Height="30" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top">Move</Button>
+            <Button  Margin="20" HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnKillBtn_Click">Kill File Using Process</Button>
         </StackPanel>
     </Grid>
 </Page>
