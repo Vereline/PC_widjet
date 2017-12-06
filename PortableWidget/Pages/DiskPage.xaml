@@ -9,7 +9,7 @@
       d:DesignHeight="400" d:DesignWidth="600"
       Title="DiskPage">
 
-    <Grid>
+    <Grid x:Name="ContentRoot">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />

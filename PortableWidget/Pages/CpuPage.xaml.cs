@@ -64,8 +64,6 @@ namespace PortableWidget.Pages
                         Thread.Sleep(timeout);
                     }
 
-                    //Thread.Sleep(2000);
-                    //RefreshBinding();
                 }
                 
             }
@@ -146,10 +144,7 @@ namespace PortableWidget.Pages
 
             InitializeComponent();
             _cpuDataClass = new CpuDataClass(0);
-            //_cpuDataClass.Id = "120";
             ContentRoot.DataContext = _cpuDataClass;
-            //_cpuDataClass.Speed = 57;
-            //_cpuDataClass.CollectingData();
             _cpuDataClass.getDataThread = new Thread(_cpuDataClass.CollectingData);
             _cpuDataClass.getDataThread.Start();
         }
