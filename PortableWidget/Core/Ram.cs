@@ -44,7 +44,8 @@ namespace PortableWidget.Core
             float MemoryInUse = 0;
             float memAvailable = Available.NextValue() / 1024;
             float memCap = GetCapacity(); // (1024 * 1024 * 1024);
-            MemoryInUse = memCap - memAvailable;
+            float memCached = GetMemoryCached() / 1024;
+            MemoryInUse = memCap - memAvailable - memCached;
             //float memCommitted = Committed.NextValue();
             //var MemoryInUse = memCommitted - memAvailable;
             //float tmp = InUse.NextValue();
