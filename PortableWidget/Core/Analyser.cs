@@ -65,10 +65,17 @@ namespace PortableWidget.Core
                     {
                         Id = ram.GetRamId(),
                         RamSpeed = ram.GetSpeed(),
-                        Capacity = ram.GetCapacity()
+                        Capacity = ram.GetCapacity(),
+                        PagedPool = ram.GetPoolPaged(),
+                        NonPagedPool = ram.GetPoolNonPaged(),
+                        MemoryInUse = ram.GetMemoryInUse(),
+                        Available = ram.GetMemoryAvailable(),
+                        MemoryCommited = ram.GetMemoryCommitted(),
+                        MemoryCached = ram.GetMemoryCached()
                     });
                 }
                 Thread.Sleep(timeout);
+                //Console.Write(" {0} ", CoreData.ramData[CoreData.ramData.Count - 1].MemoryInUse);
             }
         }
 
