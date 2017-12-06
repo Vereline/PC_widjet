@@ -13,9 +13,9 @@
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Width="100"  Header="Name" DisplayMemberBinding="{Binding Path=name}"></GridViewColumn>
-                        <GridViewColumn Width="100" Header="Path" DisplayMemberBinding="{Binding Path=path}"></GridViewColumn>
-                        <GridViewColumn Width="100" Header="Id" DisplayMemberBinding="{Binding Path=id}"></GridViewColumn>
+                        <GridViewColumn Width="100"  Header="Name" DisplayMemberBinding="{Binding Path=Name}"></GridViewColumn>
+                        <GridViewColumn Width="100" Header="Path" DisplayMemberBinding="{Binding Path=Path}"></GridViewColumn>
+                        <GridViewColumn Width="100" Header="Id" DisplayMemberBinding="{Binding Path=Id}"></GridViewColumn>
                     </GridView.Columns>
                     
                 </GridView>
