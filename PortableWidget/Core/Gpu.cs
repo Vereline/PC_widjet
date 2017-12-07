@@ -10,14 +10,14 @@ namespace PortableWidget.Core
 {
     class Gpu
     {
-        PerformanceCounter GpuUtilization = new PerformanceCounter("GPU Engine", "Utilization Percentage", "*");
+        //PerformanceCounter GpuUtilization = new PerformanceCounter("GPU Engine", "Utilization Percentage", "*");
 
-        public float GetUtilization()
-        {
-            float tmp = GpuUtilization.NextValue();
-            var GpuUtility = (float)(Math.Round(tmp, 1));
-            return GpuUtility;
-        }
+        //public float GetUtilization()
+        //{
+        //    float tmp = GpuUtilization.NextValue();
+        //    var GpuUtility = (float)(Math.Round(tmp, 1));
+        //    return GpuUtility;
+        //}
         public string GetID()
         {
             string DeviceID = "";
