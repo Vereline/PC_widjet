@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <lvc:CartesianChart Grid.Row="0" Grid.ColumnSpan="3" Margin="10" AnimationsSpeed="0:0:0.5" Hoverable="True" DataTooltip="{x:Null}">
             <lvc:CartesianChart.Series>
-                <lvc:LineSeries Values="{Binding ChartValues}" 
+                <lvc:LineSeries Values="{Binding ChartValuesCpu}" 
                                 PointGeometrySize="15" 
                                 PointForeground="White"
                                 LineSmoothness="1"
@@ -45,9 +45,7 @@
                 </lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
-        <!--<Label Grid.Row="0" Grid.ColumnSpan="3" Margin="10" Background="White" Padding="150,100">
-            here is the plot of usage irl is measured in percent
-        </Label>-->
+
         <Button Grid.Column="2" Grid.Row="1" Width="65" Height="30" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Button_Click">
             Update
         </Button>

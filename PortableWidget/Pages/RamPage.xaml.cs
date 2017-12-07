@@ -15,7 +15,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LiveCharts;
 using PortableWidget.Data;
+using LiveCharts.Configurations;
 
 namespace PortableWidget.Pages
 {
@@ -24,6 +26,12 @@ namespace PortableWidget.Pages
     /// </summary>
     public partial class RamPage : Page
     {
+        public class MeasureModel
+        {
+            public DateTime DateTime { get; set; }
+            public double Value { get; set; }
+        }
+
         public class RamDataClass : INotifyPropertyChanged
         {
             private string _id;
@@ -44,9 +52,58 @@ namespace PortableWidget.Pages
                 isRunning = false;
             }
 
+            private double _axisMax;
+            private double _axisMin;
+            private double _trend;
+
+            public ChartValues<MeasureModel> ChartValues { get; set; }
+            public Func<double, string> DateTimeFormatter { get; set; }
+            public double AxisStep { get; set; }
+            public double AxisUnit { get; set; }
+
+            public double AxisMax
+            {
+                get { return _axisMax; }
+                set
+                {
+                    _axisMax = value;
+                    OnPropertyChanged("AxisMax");
+                }
+            }
+            public double AxisMin
+            {
+                get { return _axisMin; }
+                set
+                {
+                    _axisMin = value;
+                    OnPropertyChanged("AxisMin");
+                }
+            }
+
+            private void SetAxisLimits(DateTime now)
+            {
+                AxisMax = now.Ticks + TimeSpan.FromSeconds(1).Ticks; // lets force the axis to be 1 second ahead
+                AxisMin = now.Ticks - TimeSpan.FromSeconds(8).Ticks; // and 8 seconds behind
+            }
+
 
             public RamDataClass(int i)
             {
+                var mapper = Mappers.Xy<MeasureModel>()
+                .X(model => model.DateTime.Ticks)
+                .Y(model => model.Value);
+
+                Charting.For<MeasureModel>(mapper);
+
+                ChartValues = new ChartValues<MeasureModel>();
+
+                DateTimeFormatter = value => new DateTime((long)value).ToString("hh:mm:ss");
+
+                AxisStep = TimeSpan.FromSeconds(1).Ticks;
+                AxisUnit = TimeSpan.TicksPerSecond;
+
+                SetAxisLimits(DateTime.Now);
+
                 if (i >= 0)
                 {
                     return;
@@ -73,6 +130,21 @@ namespace PortableWidget.Pages
                     {
                         RefreshBinding();
                     }
+                    var now = DateTime.Now;
+                    _trend = _memoryInUse;
+
+                    ChartValues.Add(new MeasureModel
+                    {
+                        DateTime = now,
+                        Value = _trend
+                    });
+
+                    SetAxisLimits(now);
+                    //System.Console.Write("now {0}", now);
+                    //System.Console.Write("value {0}", _trend);
+                    //lets only use the last 150 values
+                    if (ChartValues.Count > 10) ChartValues.RemoveAt(0);
+
                     Thread.Sleep(timeout);
                 }
 
