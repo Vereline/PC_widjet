@@ -27,7 +27,7 @@ namespace PortableWidget.Pages
     /// </summary>
     public partial class CpuPage : Page
     {
-        public class MeasureModel
+        public class MeasureModelCpu
         {
             public DateTime DateTime { get; set; }
             public double Value { get; set; }
@@ -44,11 +44,16 @@ namespace PortableWidget.Pages
             int timeout = 1000;
             public Thread getDataThread;
 
+            private void StopThread()
+            {
+                isRunning = false;
+            }
+
             private double _axisMax;
             private double _axisMin;
             private double _trend;
 
-            public ChartValues<MeasureModel> ChartValues { get; set; }
+            public ChartValues<MeasureModelCpu> ChartValuesCpu { get; set; }
             public Func<double, string> DateTimeFormatter { get; set; }
             public double AxisStep { get; set; }
             public double AxisUnit { get; set; }
@@ -78,24 +83,17 @@ namespace PortableWidget.Pages
                 AxisMin = now.Ticks - TimeSpan.FromSeconds(8).Ticks; // and 8 seconds behind
             }
 
-            public void StopThread()
-            {
-                isRunning = false;
-            }
-            public void StartThread()
-            {
-                isRunning = true;
-            }
+
 
             public CpuDataClass(int i)
             {
-                var mapper = Mappers.Xy<MeasureModel>()
+                var mapper = Mappers.Xy<MeasureModelCpu>()
                 .X(model => model.DateTime.Ticks)
                 .Y(model => model.Value);
 
-                Charting.For<MeasureModel>(mapper);
+                Charting.For<MeasureModelCpu>(mapper);
 
-                ChartValues = new ChartValues<MeasureModel>();
+                ChartValuesCpu = new ChartValues<MeasureModelCpu>();
 
                 DateTimeFormatter = value => new DateTime((long)value).ToString("hh:mm:ss");
 
@@ -128,18 +126,25 @@ namespace PortableWidget.Pages
                     }
                     var now = DateTime.Now;
                     _trend = _usagePercentage;
-
-                    ChartValues.Add(new MeasureModel
+                    try
                     {
-                        DateTime = now,
-                        Value = _trend
-                    });
+                        ChartValuesCpu.Add(new MeasureModelCpu
+                        {
+                            DateTime = now,
+                            Value = _trend
+                        });
+                    }
+                    catch (Exception e)
+                    {
+                        System.Console.Write(e);
+                    }
+
 
                     SetAxisLimits(now);
                     System.Console.Write("now {0}", now);
                     System.Console.Write("value {0}", _trend);
-                    //lets only use the last 150 values
-                    if (ChartValues.Count > 10) ChartValues.RemoveAt(0);
+                    ////lets only use the last 150 values
+                    if (ChartValuesCpu.Count > 150) ChartValuesCpu.RemoveAt(0);
                     Thread.Sleep(timeout);
                 }
                 
