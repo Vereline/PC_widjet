@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using PortableWidget.Models;
 using PortableWidget.Data;
+using System.Diagnostics;
 
 namespace PortableWidget.Core
 {
@@ -17,6 +18,7 @@ namespace PortableWidget.Core
         Thread _diskAnalyseThread;
         Thread _gpuAnalyseThread;
         Thread _ethernetThread;
+        Thread _processesThread;
 
         public Analyser(int timeout) {
             this.timeout = timeout;
@@ -30,11 +32,13 @@ namespace PortableWidget.Core
             _diskAnalyseThread = new Thread(AnalyseDisk);
             _gpuAnalyseThread = new Thread(AnalyseGpu);
             _ethernetThread = new Thread(AnalyseEthernet);
+            _processesThread = new Thread(AnalyseProcessses);
             _cpuAnalyseThread.Start();
             _ramAnalyseThread.Start();
             _diskAnalyseThread.Start();
             _gpuAnalyseThread.Start();
             _ethernetThread.Start();
+            _processesThread.Start();
             
         }
 
@@ -112,13 +116,31 @@ namespace PortableWidget.Core
 
         private void AnalyseProcessses()
         {
-
+            //Processes process = new Processes();
+            Cpu cpu = new Cpu();
+            while (isRun)
+            {
+                lock (CoreData.processData)
+                { 
+                    foreach (var process in Process.GetProcesses())
+                    {
+                        CoreData.processData.Add(new ProcessModel()
+                        {
+                            Id = process.Id,
+                            Name = process.ProcessName,
+                            RamUsage = process.WorkingSet64
+                        });
+                    }
+                    Thread.Sleep(timeout);
+                    CoreData.processData.Clear();
+                }
+                
+            }
         }
         
         private void AnalyseGpu()
         {
             Gpu gpu = new Gpu();
-            //Random random = new Random(); // for test
             while (isRun)
             {
                 lock (CoreData.gpuData)
@@ -137,7 +159,6 @@ namespace PortableWidget.Core
         private void AnalyseEthernet()
         {
             Ethernet ethernet = new Ethernet();
-            //Random random = new Random(); // for test
             while (isRun)
             {
                 lock (CoreData.ethernetData)
