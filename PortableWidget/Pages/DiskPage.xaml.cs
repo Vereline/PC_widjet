@@ -57,6 +57,7 @@ namespace PortableWidget.Pages
 
             public ChartValues<MeasureModel> ReadValues { get; set; }
             public ChartValues<MeasureModel> WriteValues { get; set; }
+            public ChartValues<MeasureModel> DiskChartValues { get; set; }
             public Func<double, string> DateTimeFormatter { get; set; }
             public double AxisStep { get; set; }
             public double AxisUnit { get; set; }
@@ -97,6 +98,7 @@ namespace PortableWidget.Pages
 
                 ReadValues = new ChartValues<MeasureModel>();
                 WriteValues = new ChartValues<MeasureModel>();
+                DiskChartValues = new ChartValues<MeasureModel>();
 
                 DateTimeFormatter = value => new DateTime((long)value).ToString("hh:mm:ss");
 
@@ -144,12 +146,20 @@ namespace PortableWidget.Pages
                         Value = _trendWrite
                     });
 
+                    DiskChartValues.Add(new MeasureModel
+                    {
+                        DateTime = now,
+                        Value = _averageResponseTime
+                    });
+
+
                     SetAxisLimits(now);
                     //System.Console.Write("now {0}", now);
                     //System.Console.Write("value {0}", _trend);
                     //lets only use the last 150 values
                     if (ReadValues.Count > 10) ReadValues.RemoveAt(0);
                     if (WriteValues.Count > 10) WriteValues.RemoveAt(0);
+                    if (DiskChartValues.Count > 10) DiskChartValues.RemoveAt(0);
                     Thread.Sleep(timeout);
                 }
 
