@@ -20,18 +20,35 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <lvc:CartesianChart Grid.Row="0" Grid.ColumnSpan="3" Margin="10" Series="{Binding SeriesCollection}" LegendLocation="Right" Loaded="CartesianChart_Loaded" >
+        <lvc:CartesianChart Grid.Row="0" Grid.ColumnSpan="3" Margin="10" AnimationsSpeed="0:0:0.5" Hoverable="True" DataTooltip="{x:Null}">
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries Values="{Binding ChartValues}" 
+                                PointGeometrySize="15" 
+                                PointForeground="White"
+                                LineSmoothness="1"
+                                StrokeThickness="3" 
+                                Stroke="DodgerBlue"
+                                Fill="Transparent"/>
+            </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Using %" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                <lvc:Axis Title="Using %" MaxValue="100" MinValue="0"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Time (60 sec)" Labels="{Binding Labels}"></lvc:Axis>
+            <lvc:CartesianChart.AxisX >
+                <lvc:Axis LabelFormatter="{Binding DateTimeFormatter}" 
+                          MaxValue="{Binding AxisMax}" 
+                          MinValue="{Binding AxisMin}"
+                          Unit="{Binding AxisUnit}"
+                           Title="Current Time">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Step="{Binding AxisStep}" />
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
         <!--<Label Grid.Row="0" Grid.ColumnSpan="3" Margin="10" Background="White" Padding="150,100">
             here is the plot of usage irl is measured in percent
         </Label>-->
-        <Button Grid.Column="2" Grid.Row="1" Width="65" Height="30" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+        <Button Grid.Column="2" Grid.Row="1" Width="65" Height="30" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Button_Click">
             Update
         </Button>
         <StackPanel Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="130">
