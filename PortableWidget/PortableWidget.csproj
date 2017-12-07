@@ -117,6 +117,7 @@
     <Compile Include="Core\Analyser.cs" />
     <Compile Include="Core\Cpu.cs" />
     <Compile Include="Core\Disk.cs" />
+    <Compile Include="Core\Ethernet.cs" />
     <Compile Include="Core\Gpu.cs" />
     <Compile Include="Core\Processes.cs" />
     <Compile Include="Core\Ram.cs" />

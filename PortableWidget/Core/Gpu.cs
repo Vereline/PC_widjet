@@ -4,21 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management;
+using System.Diagnostics;
 
 namespace PortableWidget.Core
 {
     class Gpu
     {
+        PerformanceCounter GpuUtilization = new PerformanceCounter("GPU Engine", "Utilization Percentage", "*");
+
+        public float GetUtilization()
+        {
+            float tmp = GpuUtilization.NextValue();
+            var GpuUtility = (float)(Math.Round(tmp, 1));
+            return GpuUtility;
+        }
         public string GetID()
         {
-            string clockSpeed = "";
+            string DeviceID = "";
             var searcher = new ManagementObjectSearcher(
             "select DeviceID from Win32_VideoController");
             foreach (var item in searcher.Get())
             {
-                clockSpeed = (string)item["DeviceID"];
+                DeviceID = (string)item["DeviceID"];
             }
-            return clockSpeed;
+            return DeviceID;
         }
 
         public UInt32 GetAdapterRam()
@@ -28,7 +37,7 @@ namespace PortableWidget.Core
                 "select AdapterRAM from Win32_VideoController");
             foreach (var item in searcher.Get())
             {
-                AdapterRAM = (UInt32)item["DeviceID"];
+                AdapterRAM = (UInt32)item["AdapterRam"];
             }
             return AdapterRAM;
         }

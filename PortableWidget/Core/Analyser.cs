@@ -15,6 +15,8 @@ namespace PortableWidget.Core
         Thread _cpuAnalyseThread;
         Thread _ramAnalyseThread;
         Thread _diskAnalyseThread;
+        Thread _gpuAnalyseThread;
+        Thread _ethernetThread;
 
         public Analyser(int timeout) {
             this.timeout = timeout;
@@ -26,9 +28,13 @@ namespace PortableWidget.Core
             _cpuAnalyseThread = new Thread(AnalyseCpu);
             _ramAnalyseThread = new Thread(AnalyseRam);
             _diskAnalyseThread = new Thread(AnalyseDisk);
+            _gpuAnalyseThread = new Thread(AnalyseGpu);
+            _ethernetThread = new Thread(AnalyseEthernet);
             _cpuAnalyseThread.Start();
             _ramAnalyseThread.Start();
             _diskAnalyseThread.Start();
+            _gpuAnalyseThread.Start();
+            _ethernetThread.Start();
             
         }
 
@@ -111,6 +117,39 @@ namespace PortableWidget.Core
         
         private void AnalyseGpu()
         {
+            Gpu gpu = new Gpu();
+            //Random random = new Random(); // for test
+            while (isRun)
+            {
+                lock (CoreData.gpuData)
+                {
+                    CoreData.gpuData.Add(new GpuModel()
+                    {
+                        Id = gpu.GetID(),
+                        AdapterRam = gpu.GetAdapterRam(),
+                        GpuDriverVersion = gpu.GetDriverVersion()
+                    });
+                }
+                Thread.Sleep(timeout);
+            }
+        }
+
+        private void AnalyseEthernet()
+        {
+            Ethernet ethernet = new Ethernet();
+            //Random random = new Random(); // for test
+            while (isRun)
+            {
+                lock (CoreData.ethernetData)
+                {
+                    CoreData.ethernetData.Add(new EthernetModel()
+                    {
+                        AdapterName = ethernet.GetAdapterName(),
+                        SendPerSecond = ethernet.GetSentSpeed()
+                    });
+                }
+                Thread.Sleep(timeout);
+            }
         }
     }
 }
