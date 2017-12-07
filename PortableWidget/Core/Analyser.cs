@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using PortableWidget.Models;
 using PortableWidget.Data;
+using System.Diagnostics;
 
 namespace PortableWidget.Core
 {
@@ -15,6 +16,9 @@ namespace PortableWidget.Core
         Thread _cpuAnalyseThread;
         Thread _ramAnalyseThread;
         Thread _diskAnalyseThread;
+        Thread _gpuAnalyseThread;
+        Thread _ethernetThread;
+        Thread _processesThread;
 
         public Analyser(int timeout) {
             this.timeout = timeout;
@@ -26,9 +30,15 @@ namespace PortableWidget.Core
             _cpuAnalyseThread = new Thread(AnalyseCpu);
             _ramAnalyseThread = new Thread(AnalyseRam);
             _diskAnalyseThread = new Thread(AnalyseDisk);
+            _gpuAnalyseThread = new Thread(AnalyseGpu);
+            _ethernetThread = new Thread(AnalyseEthernet);
+            _processesThread = new Thread(AnalyseProcessses);
             _cpuAnalyseThread.Start();
             _ramAnalyseThread.Start();
             _diskAnalyseThread.Start();
+            _gpuAnalyseThread.Start();
+            _ethernetThread.Start();
+            _processesThread.Start();
             
         }
 
@@ -106,11 +116,61 @@ namespace PortableWidget.Core
 
         private void AnalyseProcessses()
         {
-
+            //Processes process = new Processes();
+            Cpu cpu = new Cpu();
+            while (isRun)
+            {
+                lock (CoreData.processData)
+                { 
+                    foreach (var process in Process.GetProcesses())
+                    {
+                        CoreData.processData.Add(new ProcessModel()
+                        {
+                            Id = process.Id,
+                            Name = process.ProcessName,
+                            RamUsage = process.WorkingSet64
+                        });
+                    }
+                    Thread.Sleep(timeout);
+                    CoreData.processData.Clear();
+                }
+                
+            }
         }
         
         private void AnalyseGpu()
         {
+            Gpu gpu = new Gpu();
+            while (isRun)
+            {
+                lock (CoreData.gpuData)
+                {
+                    CoreData.gpuData.Add(new GpuModel()
+                    {
+                        Id = gpu.GetID(),
+                        AdapterRam = gpu.GetAdapterRam(),
+                        GpuDriverVersion = gpu.GetDriverVersion()
+                    });
+                }
+                Thread.Sleep(timeout);
+            }
+        }
+
+        private void AnalyseEthernet()
+        {
+            Ethernet ethernet = new Ethernet();
+            while (isRun)
+            {
+                lock (CoreData.ethernetData)
+                {
+                    CoreData.ethernetData.Add(new EthernetModel()
+                    {
+                        AdapterName = ethernet.GetAdapterName(),
+                        SendPerSecond = ethernet.GetSentSpeed()
+                    });
+                }
+                Thread.Sleep(timeout);
+            }
         }
     }
 }
