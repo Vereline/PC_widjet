@@ -32,9 +32,9 @@ namespace PortableWidget.Pages
             private float _memoryCommited;
             private float _memoryCached;
             private int _slotsUsed;
-            private int _pagedPool;
-            private int _nonPagedPool;
-            private UInt64 _capacity;
+            private float _pagedPool;
+            private float _nonPagedPool;
+            private float _capacity;
             private bool isRunning = true;
             int timeout = 1000;
             public Thread getDataThread;
@@ -138,7 +138,7 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public ulong Capacity
+            public float Capacity
             {
                 get { return _capacity; }
                 set
@@ -148,7 +148,7 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public int NonPagedPool
+            public float NonPagedPool
             {
                 get { return _nonPagedPool; }
                 set
@@ -158,7 +158,7 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public int PagedPool
+            public float PagedPool
             {
                 get { return _pagedPool; }
                 set
