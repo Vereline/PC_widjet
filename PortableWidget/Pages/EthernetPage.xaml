@@ -56,19 +56,19 @@
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1" Margin="5,5,5,0" VerticalAlignment="Top" HorizontalAlignment="Center">
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Id}">
-                100
+                
             </TextBlock>
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding SendPerSecond}">
-                100
+                
             </TextBlock>
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding ReceivePerSecond}">
-                100
+                
             </TextBlock>
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding SSID}">
-                100
+                
             </TextBlock>
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding AdapterName}">
-                100
+                
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.Row="1" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="130">
@@ -87,16 +87,16 @@
         </StackPanel>
         <StackPanel Grid.Column="3" Grid.Row="1" Margin="5,5,5,0" VerticalAlignment="Top" HorizontalAlignment="Center">
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding ConnectionType}">
-                100
+                
             </TextBlock>
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding SignalStrength}">
-                100
+                
             </TextBlock>
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding IPv4}">
-                100
+                
             </TextBlock>
             <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding IPv6}">
-                100
+               
             </TextBlock>
         </StackPanel>
     </Grid>

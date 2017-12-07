@@ -18,6 +18,6 @@ namespace PortableWidget.Models
         //public int Temperature { get; set; } // i am not shure how to get this
         public float Speed { get; set; }
         public int CountOfProcesses { get; set; }
-        public uint CountOfThreads { get; set; }
+        public int CountOfThreads { get; set; } 
     }
 }

@@ -14,6 +14,7 @@ namespace PortableWidget.Core
         int timeout = 1000;
         Thread _cpuAnalyseThread;
         Thread _ramAnalyseThread;
+        Thread _diskAnalyseThread;
 
         public Analyser(int timeout) {
             this.timeout = timeout;
@@ -23,13 +24,11 @@ namespace PortableWidget.Core
         {
             isRun = true;
             _cpuAnalyseThread = new Thread(AnalyseCpu);
-//<<<<<<< Updated upstream
             _ramAnalyseThread = new Thread(AnalyseRam);
-//=======
-            //ramAnalizeThread = new Thread(AnalyzeRam);
-//>>>>>>> Stashed changes
+            _diskAnalyseThread = new Thread(AnalyseDisk);
             _cpuAnalyseThread.Start();
             _ramAnalyseThread.Start();
+            _diskAnalyseThread.Start();
             
         }
 
@@ -39,7 +38,7 @@ namespace PortableWidget.Core
 
         private void AnalyseCpu() {
             Cpu cpu = new Cpu();
-            //Random random = new Random(); // for test
+            Random random = new Random(); // for test
             while (isRun) {
                 lock (CoreData.cpuData) {
                     CoreData.cpuData.Add(new CpuModel() {
@@ -48,10 +47,35 @@ namespace PortableWidget.Core
                         Speed = cpu.GetCurrentSpeed(),
                         CountOfProcesses = cpu.CountOfProcess(),
                         CountOfThreads = cpu.CountOfThreads()
-                        //CountOfThreads = (uint)random.Next(100) for test
+                        
                     });
                 }
                 Thread.Sleep(timeout);
+            }
+        }
+
+        private void AnalyseRam()
+        {
+            Ram ram = new Ram();
+            while (isRun)
+            {
+                lock (CoreData.ramData)
+                {
+                    CoreData.ramData.Add(new RamModel()
+                    {
+                        Id = ram.GetRamId(),
+                        RamSpeed = ram.GetSpeed(),
+                        Capacity = ram.GetCapacity(),
+                        PagedPool = ram.GetPoolPaged(),
+                        NonPagedPool = ram.GetPoolNonPaged(),
+                        MemoryInUse = ram.GetMemoryInUse(),
+                        Available = ram.GetMemoryAvailable(),
+                        MemoryCommited = ram.GetMemoryCommitted(),
+                        MemoryCached = ram.GetMemoryCached()
+                    });
+                }
+                Thread.Sleep(timeout);
+                //Console.Write(" {0} ", CoreData.ramData[CoreData.ramData.Count - 1].MemoryInUse);
             }
         }
 
@@ -66,13 +90,26 @@ namespace PortableWidget.Core
                         Id = disk.GetDiskId(),
                         Capacity = disk.GetCapacity(),
                         ReadSpeed = disk.GetReadCurrentSpeed(),
-                        WriteSpeed = disk.GetWriteCurrentSpeed()
+                        WriteSpeed = disk.GetWriteCurrentSpeed(),
+                        AverageResponseTime = disk.GetAvResponseTime(),
+                        ActiveTime = disk.GetActiveTime()
                     });
+                    Thread.Sleep(timeout);
+                    /*System.Console.Write("disk write {0} | avTime {1} | DiskTime {2} || ",
+                        CoreData.diskData[CoreData.diskData.Count - 1].WriteSpeed,
+                        CoreData.diskData[CoreData.diskData.Count - 1].AverageResponseTime,
+                        CoreData.diskData[CoreData.diskData.Count - 1].ActiveTime
+                        );*/
                 }
             }
         }
 
-        private void AnalyseRam()
+        private void AnalyseProcessses()
+        {
+
+        }
+        
+        private void AnalyseGpu()
         {
         }
     }

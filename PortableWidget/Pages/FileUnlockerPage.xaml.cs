@@ -40,7 +40,8 @@ namespace PortableWidget.Pages
             {
                 Processes.ItemsSource = null;
                 Processes.ItemsSource = GetBindList(openFileDialog.FileName);
-                fileField.Text = fileName;
+                fileField.Text = openFileDialog.FileName;
+                //fileField.Text = fileName;
             }
         }
 

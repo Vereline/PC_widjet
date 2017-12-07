@@ -19,8 +19,9 @@ namespace PortableWidget.Models
         public float MemoryCommited { get; set; }
         public float MemoryCached { get; set; }
         public int SlotsUsed { get; set; }
-        public int PagedPool { get; set; }
-        public int NonPagedPool { get; set; }
-        public UInt64 Capacity { get; set; }
+        public float PagedPool { get; set; }
+        public float NonPagedPool { get; set; }
+        public float Capacity { get; set; }
+        public float Available { get; set; }
     }
 }

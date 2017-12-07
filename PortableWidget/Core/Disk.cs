@@ -10,6 +10,12 @@ namespace PortableWidget.Core
 {
     class Disk
     {
+        PerformanceCounter diskWrite = new PerformanceCounter("PhysicalDisk", "Disk Write Bytes/sec", "_Total");
+        PerformanceCounter diskRead = new PerformanceCounter("PhysicalDisk", "Disk Read Bytes/sec", "_Total");
+        PerformanceCounter diskAverageTimeRead = new PerformanceCounter("PhysicalDisk", "Avg. Disk sec/Read", "_Total");
+        PerformanceCounter diskAverageTimeWrite = new PerformanceCounter("PhysicalDisk", "Avg. Disk sec/Write", "_Total");
+        PerformanceCounter diskTime = new PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
+
         public string GetDiskId()
         {
             string DiskId = "";
@@ -36,30 +42,38 @@ namespace PortableWidget.Core
             return DiskCapacity;
         }
 
-        public long GetReadCurrentSpeed()
+        public float GetReadCurrentSpeed()
         {
-            long ReadSpeed = 0;
-            PerformanceCounter ReadCounter = new PerformanceCounter();
-
-            ReadCounter.CategoryName = "PhysicalDisk";
-            ReadCounter.CounterName = "Disk Reads/sec";
-            ReadCounter.InstanceName = "_Total";
-
-            ReadSpeed = ReadCounter.RawValue;
+            float tmp = diskRead.NextValue() / 1024;
+            var ReadSpeed = (float)(Math.Round(tmp, 1));
             return ReadSpeed;
         }
 
-        public long GetWriteCurrentSpeed()
+        public float GetWriteCurrentSpeed()
         {
-            long WriteSpeed = 0;
-            PerformanceCounter WriteCounter = new PerformanceCounter();
+            float tmp = diskWrite.NextValue() / 1024;
+            var WriteSpeed = (float)(Math.Round(tmp, 1));
 
-            WriteCounter.CategoryName = "PhysicalDisk";
-            WriteCounter.CounterName = "Disk Reads/sec";
-            WriteCounter.InstanceName = "_Total";
-
-            WriteSpeed = WriteCounter.RawValue;
             return WriteSpeed;
+        }
+
+        public float GetAvResponseTime()
+        {
+            float tmpR = diskAverageTimeRead.NextValue() * 1000;
+            var DiskAverageTimeRead = (float)(Math.Round(tmpR, 1));
+
+            float tmpW = diskAverageTimeWrite.NextValue() * 1000;
+            var DiskAverageTimeWrite = (float)(Math.Round(tmpW, 1));
+
+            float AvResponseTime = (DiskAverageTimeRead + DiskAverageTimeWrite) / 2;
+            return AvResponseTime;
+        }
+
+        public float GetActiveTime()
+        {
+            float tmp = diskTime.NextValue();
+            var DiskTime = (float)(Math.Round((double)tmp, 1));
+            return DiskTime;
         }
 
     }

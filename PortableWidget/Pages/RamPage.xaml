@@ -21,17 +21,31 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <lvc:CartesianChart Grid.Row="0" Grid.ColumnSpan="5" Margin="10" Series="{Binding SeriesCollection}" LegendLocation="Right" >
+        <lvc:CartesianChart Grid.Row="0" Grid.ColumnSpan="5" Margin="10" AnimationsSpeed="0:0:0.5" Hoverable="True" DataTooltip="{x:Null}">
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries Values="{Binding ChartValues}" 
+                                PointGeometrySize="15" 
+                                PointForeground="White"
+                                LineSmoothness="1"
+                                StrokeThickness="3" 
+                                Stroke="DodgerBlue"
+                                Fill="Transparent"/>
+            </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Using %" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                <lvc:Axis Title="Using %" MaxValue="{Binding Capacity}" MinValue="0"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Time (60 sec)" Labels="{Binding Labels}"></lvc:Axis>
+            <lvc:CartesianChart.AxisX >
+                <lvc:Axis LabelFormatter="{Binding DateTimeFormatter}" 
+                          MaxValue="{Binding AxisMax}" 
+                          MinValue="{Binding AxisMin}"
+                          Unit="{Binding AxisUnit}"
+                           Title="Current Time">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Step="{Binding AxisStep}" />
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
-        <!--<Label Grid.Row="0" Grid.ColumnSpan="3" Margin="10" Background="White" Padding="150,100">
-            here is the plot of usage irl is measured in percent
-        </Label>-->
         <Button Grid.Column="4" Grid.Row="1" Width="65" Height="30" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             Update
         </Button>
@@ -55,21 +69,21 @@
              Memory Cached
             </TextBlock>
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="1" Margin="5,5,5,0" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Id}">
-                100
+        <StackPanel Grid.Column="1" Grid.Row="1" Margin="5,5,5,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150">
+            <TextBlock Height="20" Width="150"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Id}">
+                
             </TextBlock>
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding RamSpeed}">
-                100
+            <TextBlock Height="20" Width="150"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding RamSpeed}">
+                
             </TextBlock>
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding MemoryInUse}">
-                100
+            <TextBlock Height="20" Width="150"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding MemoryInUse}">
+                
             </TextBlock>
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding MemoryCommited}">
-                100
+            <TextBlock Height="20" Width="150"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding MemoryCommited}">
+                
             </TextBlock>
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding MemoryCached}">
-                100
+            <TextBlock Height="20" Width="150"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding MemoryCached}">
+                
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.Row="1" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="130">
@@ -82,16 +96,22 @@
             <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
              Non-paged Pool
             </TextBlock>
+            <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+             Capacity
+            </TextBlock>
         </StackPanel>
-        <StackPanel Grid.Column="3" Grid.Row="1" Margin="5,5,5,0" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding SlotsUsed}">
-                100
+        <StackPanel Grid.Column="3" Grid.Row="1" Margin="5,5,5,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="80">
+            <TextBlock Height="20" Width="70"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding SlotsUsed}">
+                
             </TextBlock>
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding PagedPool}">
-                100
+            <TextBlock Height="20" Width="70"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding PagedPool}">
+                
             </TextBlock>
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding NonPagedPool}">
-                100
+            <TextBlock Height="20" Width="70"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding NonPagedPool}">
+                
+            </TextBlock>
+            <TextBlock Height="20" Width="70"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Capacity}">
+
             </TextBlock>
         </StackPanel>
     </Grid>
