@@ -28,11 +28,11 @@ namespace PortableWidget.Pages
         {
             private string _id; 
             private string _gpuType; 
-            private int _temperature; 
+            private float _temperature; 
             private float _speed; 
             private float _memoryUsage; 
             private int _countOfThreads; 
-            private int _fanDutyPercentage;
+            private float _fanDutyPercentage;
             private bool isRunning = true;
             int timeout = 1000;
             public Thread getDataThread;
@@ -51,11 +51,11 @@ namespace PortableWidget.Pages
                 }
                 Id = CoreData.gpuData[i].Id;
                 //GpuType = CoreData.gpuData[i].GpuType;
-                //Temperature = CoreData.gpuData[i].Temperature;
+                Temperature = CoreData.gpuData[i].Temperature;
                 //Speed = CoreData.gpuData[i].Speed;
                 MemoryUsage = CoreData.gpuData[i].MemoryUsage;
                 //CountOfThreads = CoreData.gpuData[i].CountOfThreads;
-                //FanDutyPercentage = CoreData.gpuData[i].FanDutyPercentage;
+                FanDutyPercentage = CoreData.gpuData[i].FanDutyPercentage;
 
 
                 //CollectingData();
@@ -94,7 +94,7 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public int Temperature
+            public float Temperature
             {
                 get { return _temperature; }
                 set
@@ -134,7 +134,7 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public int FanDutyPercentage
+            public float FanDutyPercentage
             {
                 get { return _fanDutyPercentage; }
                 set
@@ -155,11 +155,11 @@ namespace PortableWidget.Pages
 
                 Id = CoreData.gpuData[i].Id;
                 //GpuType = CoreData.gpuData[i].GpuType;
-                //Temperature = CoreData.gpuData[i].Temperature;
+                Temperature = CoreData.gpuData[i].Temperature;
                 //Speed = CoreData.gpuData[i].Speed;
                 MemoryUsage = CoreData.gpuData[i].MemoryUsage;
                 //CountOfThreads = CoreData.gpuData[i].CountOfThreads;
-                //FanDutyPercentage = CoreData.gpuData[i].FanDutyPercentage;
+                FanDutyPercentage = CoreData.gpuData[i].FanDutyPercentage;
             }
 
             public event PropertyChangedEventHandler PropertyChanged;

@@ -14,23 +14,22 @@ namespace PortableWidget.Core
 
         PerformanceCounter EthernetSent = new PerformanceCounter("Network Adapter", "Bytes Sent/sec", "");
 
-        public float GetSentSpeed()
-        {
-            float SentSpeed = 0;
-            //string AdapterName = "";
-            //var searcher = new ManagementObjectSearcher(
-            //  "select Name from Win32_NetwokAdapter");
-            //foreach (var item in searcher.Get())
-            //{
-            //    AdapterName = (string)item["Name"];
-            //        EthernetSent.InstanceName = AdapterName;
-            //        SentSpeed += EthernetSent.NextValue();
-                
+        //public long GetSentSpeed()
+        //{
+        //    long SentSpeed = 0;
+        //    var searcher = new ManagementObjectSearcher(
+        //      "select Speed from Win32_NetwokAdapter");
+        //    foreach (var item in searcher.Get())
+        //    {
+        //        SentSpeed += (long)item["Speed"];
+        //        //EthernetSent.InstanceName = SentSpeed;
+        //        //SentSpeed += EthernetSent.NextValue();
 
-            //}
-            //Console.WriteLine(SentSpeed);
-            return SentSpeed;
-        }
+
+        //    }
+        //    //Console.WriteLine(SentSpeed);
+        //    return SentSpeed;
+        //}
 
         public string GetDeviceId()
         {

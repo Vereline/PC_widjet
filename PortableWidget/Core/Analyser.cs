@@ -48,7 +48,6 @@ namespace PortableWidget.Core
 
         private void AnalyseCpu() {
             Cpu cpu = new Cpu();
-            Random random = new Random(); // for test
             while (isRun) {
                 lock (CoreData.cpuData) {
                     CoreData.cpuData.Add(new CpuModel() {
@@ -128,10 +127,11 @@ namespace PortableWidget.Core
                         {
                             Id = process.Id,
                             Name = process.ProcessName,
-                            RamUsage = process.WorkingSet64
+                            RamUsage = process.WorkingSet64 / (1024 * 1024)
                         });
                     }
                     Thread.Sleep(timeout);
+                    //Console.WriteLine("process name {0}",CoreData.processData[CoreData.processData.Count - 3].RamUsage);
                     CoreData.processData.Clear();
                 }
                 
@@ -149,8 +149,14 @@ namespace PortableWidget.Core
                     {
                         Id = gpu.GetID(),
                         AdapterRam = gpu.GetAdapterRam(),
-                        GpuDriverVersion = gpu.GetDriverVersion()
+                        GpuDriverVersion = gpu.GetDriverVersion(),
+                        MemoryUsage = gpu.GetUsage(),
+                        Temperature = gpu.GetTemperature(),
+                        FanDutyPercentage =gpu.GetFanDuty()
+                        //Speed = gpu.GetSpeed()
                     });
+                    //Console.WriteLine("gpu temperature {0}", CoreData.gpuData[CoreData.gpuData.Count - 1].Temperature);
+                    //Console.WriteLine("gpu utilization {0}", CoreData.gpuData[CoreData.gpuData.Count - 1].FanDutyPercentage);
                 }
                 Thread.Sleep(timeout);
             }
@@ -166,7 +172,8 @@ namespace PortableWidget.Core
                     CoreData.ethernetData.Add(new EthernetModel()
                     {
                         AdapterName = ethernet.GetAdapterName(),
-                        SendPerSecond = ethernet.GetSentSpeed()
+                        Id = ethernet.GetDeviceId()
+                        //ConnectionSpeed = ethernet.GetSentSpeed()
                     });
                 }
                 Thread.Sleep(timeout);
