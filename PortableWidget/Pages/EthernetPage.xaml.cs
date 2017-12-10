@@ -54,14 +54,14 @@ namespace PortableWidget.Pages
                 }
 
                 Id = CoreData.ethernetData[i].Id;
-                SendPerSecond = CoreData.ethernetData[i].SendPerSecond;
+                SendPerSecond = CoreData.ethernetData[i].ConnectionSpeed;
                 SSID = CoreData.ethernetData[i].SSID;
                 AdapterName = CoreData.ethernetData[i].AdapterName;
                 ConnectionType = CoreData.ethernetData[i].ConnectionType;
                 SignalStrength = CoreData.ethernetData[i].SignalStrength;
                 IPv4 = CoreData.ethernetData[i].IPv4;
                 IPv6 = CoreData.ethernetData[i].IPv6;
-                ReceivePerSecond = CoreData.ethernetData[i].ReceivePerSecond;
+                //ReceivePerSecond = CoreData.ethernetData[i].ReceivePerSecond;
                 //CollectingData();
             }
 
@@ -178,14 +178,14 @@ namespace PortableWidget.Pages
                 }
 
                 Id = CoreData.ethernetData[i].Id;
-                SendPerSecond = CoreData.ethernetData[i].SendPerSecond;
+                SendPerSecond = CoreData.ethernetData[i].ConnectionSpeed;
                 SSID = CoreData.ethernetData[i].SSID;
                 AdapterName = CoreData.ethernetData[i].AdapterName;
                 ConnectionType = CoreData.ethernetData[i].ConnectionType;
                 SignalStrength = CoreData.ethernetData[i].SignalStrength;
                 IPv4 = CoreData.ethernetData[i].IPv4;
                 IPv6 = CoreData.ethernetData[i].IPv6;
-                ReceivePerSecond = CoreData.ethernetData[i].ReceivePerSecond;
+                //ReceivePerSecond = CoreData.ethernetData[i].ReceivePerSecond;
             }
 
             public event PropertyChangedEventHandler PropertyChanged;

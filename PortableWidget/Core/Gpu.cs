@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management;
 using System.Diagnostics;
+using OpenHardwareMonitor.Hardware;
 
 namespace PortableWidget.Core
 {
@@ -18,6 +19,7 @@ namespace PortableWidget.Core
         //    var GpuUtility = (float)(Math.Round(tmp, 1));
         //    return GpuUtility;
         //}
+
         public string GetID()
         {
             string DeviceID = "";
@@ -53,5 +55,100 @@ namespace PortableWidget.Core
             }
             return DriverVersion;
         }
+
+        public float GetUsage()
+        {
+            float usage = 0;
+            Computer thisComputer = new Computer() { GPUEnabled = true };
+            thisComputer.Open();
+            foreach (var hardwareItem in thisComputer.Hardware)
+            {
+                if (hardwareItem.HardwareType == HardwareType.GpuNvidia)
+                {
+                    hardwareItem.Update();
+                    foreach (IHardware subHardware in hardwareItem.SubHardware)
+                        subHardware.Update();
+                    foreach (var sensor in hardwareItem.Sensors) {
+                        if (sensor.SensorType == SensorType.Load)
+                        {
+                            usage = sensor.Value.Value;
+                        }
+                    }
+                }
+            }
+            return usage;
+        }
+
+        public float GetTemperature()
+        {
+            float temperature = 0;
+            Computer thisComputer = new Computer() { GPUEnabled = true };
+            thisComputer.Open();
+            foreach (var hardwareItem in thisComputer.Hardware)
+            {
+                if (hardwareItem.HardwareType == HardwareType.GpuNvidia)
+                {
+                    hardwareItem.Update();
+                    foreach (IHardware subHardware in hardwareItem.SubHardware)
+                        subHardware.Update();
+                    foreach (var sensor in hardwareItem.Sensors)
+                    {
+                        if (sensor.SensorType == SensorType.Temperature)
+                        {
+                            temperature = sensor.Value.Value;
+                        }
+                    }
+                }
+            }
+            return temperature;
+        }
+
+        public float GetFanDuty()
+        {
+            float FanDuty = 0;
+            Computer thisComputer = new Computer() { GPUEnabled = true };
+            thisComputer.Open();
+            foreach (var hardwareItem in thisComputer.Hardware)
+            {
+                if (hardwareItem.HardwareType == HardwareType.GpuNvidia)
+                {
+                    hardwareItem.Update();
+                    foreach (IHardware subHardware in hardwareItem.SubHardware)
+                        subHardware.Update();
+                    foreach (var sensor in hardwareItem.Sensors)
+                    {
+                        if (sensor.SensorType == SensorType.Fan)
+                        {
+                            FanDuty = sensor.Value.Value;
+                        }
+                    }
+                }
+            }
+            return FanDuty;
+        }
+
+        //public float GetSpeed()
+        //{
+        //    float speed = 0;
+        //    Computer thisComputer = new Computer() { GPUEnabled = true };
+        //    thisComputer.Open();
+        //    foreach (var hardwareItem in thisComputer.Hardware)
+        //    {
+        //        if (hardwareItem.HardwareType == HardwareType.GpuNvidia)
+        //        {
+        //            hardwareItem.Update();
+        //            foreach (IHardware subHardware in hardwareItem.SubHardware)
+        //                subHardware.Update();
+        //            foreach (var sensor in hardwareItem.Sensors)
+        //            {
+        //                if (sensor.SensorType == SensorType.Clock)
+        //                {
+        //                    speed = sensor.Value.Value;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return speed;
+        //}
     }
 }
