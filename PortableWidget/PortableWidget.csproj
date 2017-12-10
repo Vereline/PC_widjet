@@ -84,6 +84,10 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Windows.Forms.DataVisualization.Design" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -111,6 +115,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\Analyser.cs" />
+    <Compile Include="Core\Battery.cs" />
     <Compile Include="Core\Cpu.cs" />
     <Compile Include="Core\Disk.cs" />
     <Compile Include="Core\Ethernet.cs" />
@@ -165,6 +170,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Battery.cs" />
     <Compile Include="Models\Cpu.cs" />
     <Compile Include="Models\Disk.cs" />
     <Compile Include="Models\Ethernet.cs" />

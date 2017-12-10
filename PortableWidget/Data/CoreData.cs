@@ -15,7 +15,8 @@ namespace PortableWidget.Data
         public static List<GpuModel> gpuData { get; set; } = new List<GpuModel>();
         public static List<RamModel> ramData { get; set; } = new List<RamModel>();
         public static List<ProcessModel> processData { get; set; } = new List<ProcessModel>();
-        //public static List<ProcessModel> processNameData { get; set; } = new List<ProcessModel>();
-        //public static List<ProcessModel> processRamData { get; set; } = new List<ProcessModel>();
+        public static List<ProcessModel> processNameData { get; set; } = new List<ProcessModel>();
+        public static List<ProcessModel> processRamData { get; set; } = new List<ProcessModel>();
+        public static List<BatteryModel> batteryData { get; set; } = new List<BatteryModel>();
     }
 }
