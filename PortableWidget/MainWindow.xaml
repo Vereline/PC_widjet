@@ -34,6 +34,12 @@
                             BorderBrush="White" BorderThickness="2"></Frame>
                         </TabItem.Content>
                     </TabItem>
+                    <TabItem x:Name="BatteryPage" Header="Battery">
+                        <TabItem.Content>
+                            <Frame Source="Pages/BatteryPage.xaml" Margin="3" Background="White"
+                            BorderBrush="White" BorderThickness="2"></Frame>
+                        </TabItem.Content>
+                    </TabItem>
                     <TabItem x:Name="DiscPage" Header="Disc">
                         <TabItem.Content>
                             <Frame Source="Pages/DiskPage.xaml" Margin="3" Background="White"

@@ -22,24 +22,22 @@ using PortableWidget.Data;
 namespace PortableWidget.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для GpuPage.xaml
+    /// Логика взаимодействия для BatteryPage.xaml
     /// </summary>
-    public partial class GpuPage : Page
+    public partial class BatteryPage : Page
     {
-        public class MeasureModelGpu
+        public class MeasureModelBattery
         {
             public DateTime DateTime { get; set; }
             public double Value { get; set; }
         }
 
-        public class CoreDataClass : INotifyPropertyChanged
+        public class BatteryDataClass : INotifyPropertyChanged
         {
-            private string _id; 
-            private string _gpuDriverVersion; 
-            private float _temperature; 
-            private float _adapterRam; 
-            private float _memoryUsage; 
-            private float _fanDutyPercentage;
+            private string _id;
+            private string _charge;
+            private float _fullCharge;
+            private float _rechargeTime;
             private bool isRunning = true;
             int timeout = 1000;
             public Thread getDataThread;
@@ -53,7 +51,7 @@ namespace PortableWidget.Pages
             private double _axisMin;
             private double _trend;
 
-            public ChartValues<MeasureModelGpu> ChartValuesGpu { get; set; }
+            public ChartValues<MeasureModelBattery> ChartValuesBattery { get; set; }
             public Func<double, string> DateTimeFormatter { get; set; }
             public double AxisStep { get; set; }
             public double AxisUnit { get; set; }
@@ -77,22 +75,23 @@ namespace PortableWidget.Pages
                 }
             }
 
-
             private void SetAxisLimits(DateTime now)
             {
                 AxisMax = now.Ticks + TimeSpan.FromSeconds(1).Ticks; // lets force the axis to be 1 second ahead
                 AxisMin = now.Ticks - TimeSpan.FromSeconds(8).Ticks; // and 8 seconds behind
             }
 
-            public CoreDataClass(int i)
+
+
+            public BatteryDataClass(int i)
             {
-                var mapper = Mappers.Xy<MeasureModelGpu>()
-               .X(model => model.DateTime.Ticks)
-               .Y(model => model.Value);
+                var mapper = Mappers.Xy<MeasureModelBattery>()
+                .X(model => model.DateTime.Ticks)
+                .Y(model => model.Value);
 
-                Charting.For<MeasureModelGpu>(mapper);
+                Charting.For<MeasureModelBattery>(mapper);
 
-                ChartValuesGpu = new ChartValues<MeasureModelGpu>();
+                ChartValuesBattery = new ChartValues<MeasureModelBattery>();
 
                 DateTimeFormatter = value => new DateTime((long)value).ToString("hh:mm:ss");
 
@@ -105,31 +104,28 @@ namespace PortableWidget.Pages
                 {
                     return;
                 }
-                Id = CoreData.gpuData[i].Id;
-                Temperature = CoreData.gpuData[i].Temperature;
-                AdapterRam = CoreData.gpuData[i].AdapterRam;
-                MemoryUsage = CoreData.gpuData[i].MemoryUsage;
-                GpuDriverVersion = CoreData.gpuData[i].GpuDriverVersion;
-                FanDutyPercentage = CoreData.gpuData[i].FanDutyPercentage;
+
+                ID = CoreData.batteryData[i].ID;
+                RechargeTime = CoreData.batteryData[i].RechargeTime;
+                Charge = CoreData.batteryData[i].Charge;
+                FullCharge = CoreData.batteryData[i].FullCharge;
+                
+                //CollectingData();
             }
 
             public void CollectingData()
             {
                 while (isRunning)
                 {
-                    lock (CoreData.gpuData)
+                    lock (CoreData.batteryData)
                     {
                         RefreshBinding();
-                        //System.Console.Write(" fan ={0}", FanDutyPercentage);
-                        //System.Console.Write("temp ={0}", Temperature);
                     }
-
                     var now = DateTime.Now;
-                    _trend = _memoryUsage;
+                    _trend = _rechargeTime;
                     try
                     {
-                        //_trend = 10;
-                        ChartValuesGpu.Add(new MeasureModelGpu
+                        ChartValuesBattery.Add(new MeasureModelBattery
                         {
                             DateTime = now,
                             Value = _trend
@@ -142,14 +138,16 @@ namespace PortableWidget.Pages
 
 
                     SetAxisLimits(now);
-                    if (ChartValuesGpu.Count > 150) ChartValuesGpu.RemoveAt(0);
-
+                    //System.Console.Write("now {0}", now);
+                    //System.Console.Write("value {0}", _trend);
+                    ////lets only use the last 150 values
+                    if (ChartValuesBattery.Count > 150) ChartValuesBattery.RemoveAt(0);
                     Thread.Sleep(timeout);
                 }
 
             }
 
-            public string Id
+            public string ID
             {
                 get { return _id; }
                 set
@@ -159,69 +157,48 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public float Temperature
+            public float FullCharge
             {
-                get { return _temperature; }
+                get { return _fullCharge; }
                 set
                 {
-                    _temperature = value;
+                    _fullCharge = value;
                     OnPropertyChanged();
                 }
             }
 
-            public float AdapterRam
+            public float RechargeTime
             {
-                get { return _adapterRam; }
+                get { return _rechargeTime; }
                 set
                 {
-                    _adapterRam = value;
+                    _rechargeTime = value;
                     OnPropertyChanged();
                 }
             }
 
-            public float MemoryUsage
+            public string Charge
             {
-                get { return _memoryUsage; }
+                get { return _charge; }
                 set
                 {
-                    _memoryUsage = value;
-                    OnPropertyChanged();
-                }
-            }
-
-            public string GpuDriverVersion
-            {
-                get { return _gpuDriverVersion; }
-                set
-                {
-                    _gpuDriverVersion = value;
-                    OnPropertyChanged();
-                }
-            }
-
-            public float FanDutyPercentage
-            {
-                get { return _fanDutyPercentage; }
-                set
-                {
-                    _fanDutyPercentage = value;
+                    _charge = value;
                     OnPropertyChanged();
                 }
             }
 
             public void RefreshBinding()
             {
-                var i = CoreData.gpuData.Count - 1;
+                var i = CoreData.batteryData.Count - 1;
                 if (i <= 0)
                 {
                     return;
                 }
-                Id = CoreData.gpuData[i].Id;
-                Temperature = CoreData.gpuData[i].Temperature;
-                AdapterRam = CoreData.gpuData[i].AdapterRam;
-                MemoryUsage = CoreData.gpuData[i].MemoryUsage;
-                GpuDriverVersion = CoreData.gpuData[i].GpuDriverVersion;
-                FanDutyPercentage = CoreData.gpuData[i].FanDutyPercentage;
+
+                ID = CoreData.batteryData[i].ID;
+                RechargeTime = CoreData.batteryData[i].RechargeTime;
+                Charge = CoreData.batteryData[i].Charge;
+                FullCharge = CoreData.batteryData[i].FullCharge;
             }
 
             public event PropertyChangedEventHandler PropertyChanged;
@@ -233,15 +210,22 @@ namespace PortableWidget.Pages
         }
 
 
-        private CoreDataClass _CoreDataClass;
+        private BatteryDataClass _batteryDataClass;
 
-        public GpuPage()
+
+        public BatteryPage()
         {
             InitializeComponent();
-            _CoreDataClass = new CoreDataClass(0);
-            ContentRoot.DataContext = _CoreDataClass;
-            _CoreDataClass.getDataThread = new Thread(_CoreDataClass.CollectingData);
-            _CoreDataClass.getDataThread.Start();
+            InitializeComponent();
+            _batteryDataClass = new BatteryDataClass(0);
+            ContentRoot.DataContext = _batteryDataClass;
+            _batteryDataClass.getDataThread = new Thread(_batteryDataClass.CollectingData);
+            _batteryDataClass.getDataThread.Start();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

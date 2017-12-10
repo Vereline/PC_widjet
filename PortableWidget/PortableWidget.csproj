@@ -132,6 +132,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\BatteryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\CpuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,6 +183,9 @@
     <Compile Include="Models\Ram.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BatteryPage.xaml.cs">
+      <DependentUpon>BatteryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\CpuPage.xaml.cs">
       <DependentUpon>CpuPage.xaml</DependentUpon>
