@@ -141,8 +141,8 @@ namespace PortableWidget.Pages
 
 
                     SetAxisLimits(now);
-                    System.Console.Write("now {0}", now);
-                    System.Console.Write("value {0}", _trend);
+                    //System.Console.Write("now {0}", now);
+                    //System.Console.Write("value {0}", _trend);
                     ////lets only use the last 150 values
                     if (ChartValuesCpu.Count > 150) ChartValuesCpu.RemoveAt(0);
                     Thread.Sleep(timeout);

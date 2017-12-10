@@ -27,11 +27,10 @@ namespace PortableWidget.Pages
         public class CoreDataClass : INotifyPropertyChanged
         {
             private string _id; 
-            private string _gpuType; 
+            private string _gpuDriverVersion; 
             private float _temperature; 
-            private float _speed; 
+            private float _adapterRam; 
             private float _memoryUsage; 
-            private int _countOfThreads; 
             private float _fanDutyPercentage;
             private bool isRunning = true;
             int timeout = 1000;
@@ -50,15 +49,11 @@ namespace PortableWidget.Pages
                     return;
                 }
                 Id = CoreData.gpuData[i].Id;
-                //GpuType = CoreData.gpuData[i].GpuType;
                 Temperature = CoreData.gpuData[i].Temperature;
-                //Speed = CoreData.gpuData[i].Speed;
+                AdapterRam = CoreData.gpuData[i].AdapterRam;
                 MemoryUsage = CoreData.gpuData[i].MemoryUsage;
-                //CountOfThreads = CoreData.gpuData[i].CountOfThreads;
+                GpuDriverVersion = CoreData.gpuData[i].GpuDriverVersion;
                 FanDutyPercentage = CoreData.gpuData[i].FanDutyPercentage;
-
-
-                //CollectingData();
             }
 
             public void CollectingData()
@@ -68,6 +63,8 @@ namespace PortableWidget.Pages
                     lock (CoreData.gpuData)
                     {
                         RefreshBinding();
+                        //System.Console.Write(" fan ={0}", FanDutyPercentage);
+                        //System.Console.Write("temp ={0}", Temperature);
                     }
                     Thread.Sleep(timeout);
                 }
@@ -84,16 +81,6 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public string GpuType
-            {
-                get { return _gpuType; }
-                set
-                {
-                    _gpuType = value;
-                    OnPropertyChanged();
-                }
-            }
-
             public float Temperature
             {
                 get { return _temperature; }
@@ -104,12 +91,12 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public float Speed
+            public float AdapterRam
             {
-                get { return _speed; }
+                get { return _adapterRam; }
                 set
                 {
-                    _speed = value;
+                    _adapterRam = value;
                     OnPropertyChanged();
                 }
             }
@@ -124,12 +111,12 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public int CountOfThreads
+            public string GpuDriverVersion
             {
-                get { return _countOfThreads; }
+                get { return _gpuDriverVersion; }
                 set
                 {
-                    _countOfThreads = value;
+                    _gpuDriverVersion = value;
                     OnPropertyChanged();
                 }
             }
@@ -144,7 +131,6 @@ namespace PortableWidget.Pages
                 }
             }
 
-
             public void RefreshBinding()
             {
                 var i = CoreData.gpuData.Count - 1;
@@ -152,13 +138,11 @@ namespace PortableWidget.Pages
                 {
                     return;
                 }
-
                 Id = CoreData.gpuData[i].Id;
-                //GpuType = CoreData.gpuData[i].GpuType;
                 Temperature = CoreData.gpuData[i].Temperature;
-                //Speed = CoreData.gpuData[i].Speed;
+                AdapterRam = CoreData.gpuData[i].AdapterRam;
                 MemoryUsage = CoreData.gpuData[i].MemoryUsage;
-                //CountOfThreads = CoreData.gpuData[i].CountOfThreads;
+                GpuDriverVersion = CoreData.gpuData[i].GpuDriverVersion;
                 FanDutyPercentage = CoreData.gpuData[i].FanDutyPercentage;
             }
 

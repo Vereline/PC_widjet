@@ -120,7 +120,8 @@ namespace PortableWidget.Core
             while (isRun)
             {
                 lock (CoreData.processData)
-                { 
+                {
+                    CoreData.processData.Clear();
                     foreach (var process in Process.GetProcesses())
                     {
                         CoreData.processData.Add(new ProcessModel()
@@ -131,8 +132,8 @@ namespace PortableWidget.Core
                         });
                     }
                     Thread.Sleep(timeout);
-                    //Console.WriteLine("process name {0}",CoreData.processData[CoreData.processData.Count - 3].RamUsage);
-                    CoreData.processData.Clear();
+                    //Console.WriteLine("");
+                    //CoreData.processData.Clear();
                 }
                 
             }
@@ -171,8 +172,8 @@ namespace PortableWidget.Core
                 {
                     CoreData.ethernetData.Add(new EthernetModel()
                     {
-                        AdapterName = ethernet.GetAdapterName(),
-                        Id = ethernet.GetDeviceId()
+                        //AdapterName = ethernet.GetAdapterName(),
+                        //Id = ethernet.GetDeviceId()
                         //ConnectionSpeed = ethernet.GetSentSpeed()
                     });
                 }
