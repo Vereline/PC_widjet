@@ -11,7 +11,7 @@ namespace PortableWidget.Models
 
     public class Battery : DbContext
     {
-        public Battery() : base("name=Gpu") { }
+        public Battery() : base("name=Battery") { }
 
         public virtual DbSet<BatteryModel> BatteryModel { get; set; }
     }
