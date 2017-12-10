@@ -63,11 +63,13 @@ namespace PortableWidget.Core
             thisComputer.Open();
             foreach (var hardwareItem in thisComputer.Hardware)
             {
-                if (hardwareItem.HardwareType == HardwareType.GpuNvidia)
+                if (hardwareItem.HardwareType == HardwareType.GpuNvidia || hardwareItem.HardwareType == HardwareType.GpuAti)
                 {
                     hardwareItem.Update();
                     foreach (IHardware subHardware in hardwareItem.SubHardware)
+                    {
                         subHardware.Update();
+                    }
                     foreach (var sensor in hardwareItem.Sensors) {
                         if (sensor.SensorType == SensorType.Load)
                         {

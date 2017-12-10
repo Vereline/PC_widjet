@@ -19,6 +19,7 @@ namespace PortableWidget.Core
         Thread _gpuAnalyseThread;
         Thread _ethernetThread;
         Thread _processesThread;
+        Thread _batteryThread;
 
         public Analyser(int timeout) {
             this.timeout = timeout;
@@ -33,12 +34,14 @@ namespace PortableWidget.Core
             _gpuAnalyseThread = new Thread(AnalyseGpu);
             _ethernetThread = new Thread(AnalyseEthernet);
             _processesThread = new Thread(AnalyseProcessses);
+            _batteryThread = new Thread(AnalyseBattery);
             _cpuAnalyseThread.Start();
             _ramAnalyseThread.Start();
             _diskAnalyseThread.Start();
             _gpuAnalyseThread.Start();
             _ethernetThread.Start();
             _processesThread.Start();
+            _batteryThread.Start();
             
         }
 
@@ -177,6 +180,30 @@ namespace PortableWidget.Core
                         //ConnectionSpeed = ethernet.GetSentSpeed()
                     });
                 }
+                Thread.Sleep(timeout);
+            }
+        }
+
+        private void AnalyseBattery()
+        {
+            Battery battery = new Battery();
+            while (isRun)
+            {
+                lock (CoreData.batteryData)
+                {
+                    CoreData.batteryData.Add(new BatteryModel()
+                    {
+                        ID = battery.GetDevicePNPId(),
+                        //Charge = battery.GetCharge()
+                        //RechargeTime = battery.GetRechargeTime(),
+                        //FullCharge = battery.GetMaxCharge()
+                    });
+
+                }
+                Console.WriteLine("ID {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].ID);
+                //Console.WriteLine("charge {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].Charge);
+                //Console.WriteLine("full {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].FullCharge);
+                //Console.WriteLine("time {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].RechargeTime);
                 Thread.Sleep(timeout);
             }
         }
