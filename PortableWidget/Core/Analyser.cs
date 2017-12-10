@@ -193,17 +193,17 @@ namespace PortableWidget.Core
                 {
                     CoreData.batteryData.Add(new BatteryModel()
                     {
-                        ID = battery.GetDevicePNPId(),
-                        //Charge = battery.GetCharge()
-                        //RechargeTime = battery.GetRechargeTime(),
-                        //FullCharge = battery.GetMaxCharge()
+                        ID = battery.GetDeviceId(),
+                        Charge = battery.GetCharge(),
+                        RechargeTime = battery.GetRechargeTime(),
+                        FullCharge = battery.GetMaxCharge()
                     });
 
                 }
                 Console.WriteLine("ID {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].ID);
-                //Console.WriteLine("charge {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].Charge);
-                //Console.WriteLine("full {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].FullCharge);
-                //Console.WriteLine("time {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].RechargeTime);
+                Console.WriteLine("charge {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].Charge);
+                Console.WriteLine("full {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].FullCharge);
+                Console.WriteLine("time {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].RechargeTime);
                 Thread.Sleep(timeout);
             }
         }

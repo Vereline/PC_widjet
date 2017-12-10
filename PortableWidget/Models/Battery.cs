@@ -19,7 +19,7 @@ namespace PortableWidget.Models
     public class BatteryModel
     {
         public string ID { get; set; }
-        public float Charge { get; set; }
+        public string Charge { get; set; }
         public float FullCharge { get; set; }
         public float RechargeTime { get; set; }
 
