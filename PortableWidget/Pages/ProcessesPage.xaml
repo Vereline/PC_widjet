@@ -8,24 +8,23 @@
       d:DesignHeight="400" d:DesignWidth="600"
       Title="ProcessesPage">
 
-    <Grid>
-        <ListView Margin="10" Height="300" VerticalAlignment="Top">
+    <Grid x:Name="ContentRoot">
+        <ListView x:Name="LvDataBinding" Margin="10" Height="300" VerticalAlignment="Top">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
                         <GridViewColumn Width="100"  Header="Name" DisplayMemberBinding="{Binding Path=Name}"></GridViewColumn>
-                        <GridViewColumn Width="100" Header="Path" DisplayMemberBinding="{Binding Path=Path}"></GridViewColumn>
+                        <GridViewColumn Width="100" Header="Ram Usage" DisplayMemberBinding="{Binding Path=RamUsage}"></GridViewColumn>
                         <GridViewColumn Width="100" Header="Id" DisplayMemberBinding="{Binding Path=Id}"></GridViewColumn>
                     </GridView.Columns>
-                    
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Kill Process"></MenuItem>
+                    <MenuItem Header="Kill Process" Click="MenuItem_OnClick"></MenuItem>
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>
-        <Button Content="Update" Width="65" Height="30" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right"></Button>
+        <Button Content="Update" Width="65" Height="30" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Button_Click"></Button>
     </Grid>
 </Page>
