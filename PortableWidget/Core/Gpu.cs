@@ -97,7 +97,10 @@ namespace PortableWidget.Core
                     {
                         if (sensor.SensorType == SensorType.Temperature)
                         {
-                            temperature = sensor.Value.Value;
+                            if (sensor.Value.Value != 0)
+                            {
+                                temperature = sensor.Value.Value;
+                            }
                         }
                     }
                 }

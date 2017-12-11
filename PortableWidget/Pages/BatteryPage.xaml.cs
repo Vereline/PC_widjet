@@ -105,10 +105,10 @@ namespace PortableWidget.Pages
                     return;
                 }
 
-                ID = CoreData.batteryData[i].ID;
-                RechargeTime = CoreData.batteryData[i].RechargeTime;
-                Charge = CoreData.batteryData[i].Charge;
-                FullCharge = CoreData.batteryData[i].FullCharge;
+                //ID = CoreData.batteryData[i].ID;
+                //RechargeTime = CoreData.batteryData[i].RechargeTime;
+                //Charge = CoreData.batteryData[i].Charge;
+                //FullCharge = CoreData.batteryData[i].FullCharge;
                 
                 //CollectingData();
             }
@@ -195,10 +195,10 @@ namespace PortableWidget.Pages
                     return;
                 }
 
-                ID = CoreData.batteryData[i].ID;
-                RechargeTime = CoreData.batteryData[i].RechargeTime;
-                Charge = CoreData.batteryData[i].Charge;
-                FullCharge = CoreData.batteryData[i].FullCharge;
+                //ID = CoreData.batteryData[i].ID;
+                //RechargeTime = CoreData.batteryData[i].RechargeTime;
+                //Charge = CoreData.batteryData[i].Charge;
+                //FullCharge = CoreData.batteryData[i].FullCharge;
             }
 
             public event PropertyChangedEventHandler PropertyChanged;

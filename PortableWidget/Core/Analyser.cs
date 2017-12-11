@@ -156,7 +156,7 @@ namespace PortableWidget.Core
                         GpuDriverVersion = gpu.GetDriverVersion(),
                         MemoryUsage = gpu.GetUsage(),
                         Temperature = gpu.GetTemperature(),
-                        FanDutyPercentage =gpu.GetFanDuty()
+                        FanDutyPercentage = gpu.GetFanDuty()
                         //Speed = gpu.GetSpeed()
                     });
                     //Console.WriteLine("gpu temperature {0}", CoreData.gpuData[CoreData.gpuData.Count - 1].Temperature);
@@ -186,24 +186,27 @@ namespace PortableWidget.Core
 
         private void AnalyseBattery()
         {
-            Battery battery = new Battery();
+            BatteryCore battery = new BatteryCore();
             while (isRun)
             {
                 lock (CoreData.batteryData)
                 {
+                    List<string> datalist = battery.GetBatteryInformation();
                     CoreData.batteryData.Add(new BatteryModel()
                     {
-                        ID = battery.GetDeviceId(),
-                        Charge = battery.GetCharge(),
-                        RechargeTime = battery.GetRechargeTime(),
-                        FullCharge = battery.GetMaxCharge()
+                        Availability = datalist[0],
+                        BatteryStatus = datalist[1],
+                        DesignVoltage = Double.Parse(datalist[2]),
+                        EstimatedChargeRemaining = UInt32.Parse(datalist[3]),
+                        EstimatedRunTime = UInt32.Parse(datalist[4])
                     });
 
                 }
-                Console.WriteLine("ID {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].ID);
-                Console.WriteLine("charge {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].Charge);
-                Console.WriteLine("full {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].FullCharge);
-                Console.WriteLine("time {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].RechargeTime);
+                Console.WriteLine("Av {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].Availability);
+                Console.WriteLine("status {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].BatteryStatus);
+                Console.WriteLine("volt {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].DesignVoltage);
+                Console.WriteLine("ChRem {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].EstimatedChargeRemaining);
+                Console.WriteLine("RunTime {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].EstimatedRunTime);
                 Thread.Sleep(timeout);
             }
         }
