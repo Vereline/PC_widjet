@@ -48,40 +48,41 @@
         <Button Grid.Column="2" Grid.Row="1" Width="65" Height="30" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Button_Click">
             Update
         </Button>
-        <StackPanel Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="130">
-            <TextBlock  Height="20" Width="110" TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-             Id
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="auto" >
+            <TextBlock  Height="20" Width="110" TextAlignment="Center" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+             Availability
             </TextBlock>
-            <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-             Charge
+            <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+             Battery Status
             </TextBlock>
-            <!--<TextBlock Height="20" Width="110" Background="White" TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-             Temperature
-            </TextBlock>-->
-            <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-             Full Charge
+            <TextBlock Height="20" Width="110" TextAlignment="Center" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+             Estimated Run Time
             </TextBlock>
-            <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-             Recharge Time
+            <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+             Design Voltage
+            </TextBlock>
+            <TextBlock Height="20" Width="150"  TextAlignment="Center" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+             Estimated Charge Remaining
             </TextBlock>
             <TextBlock Height="20" Width="110"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
              
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1" Margin="5,5,5,0" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBlock Height="20" Width="100"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Id }">
+            <TextBlock Height="20" Width="200"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Availability }">
 
             </TextBlock>
-            <TextBlock Height="20" Width="100"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding Charge}">
+            <TextBlock Height="20" Width="200"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding BatteryStatus}">
 
             </TextBlock>
-            <TextBlock Height="20" Width="100"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding FullCharge}">
+            <TextBlock Height="20" Width="200"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding EstimatedRunTime}">
 
             </TextBlock>
-            <TextBlock Height="20" Width="100"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding RechergeTime}">
+
+            <TextBlock Height="20" Width="200"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding DesignVoltage}">
 
             </TextBlock>
-            <TextBlock Height="20" Width="30"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding CountOfThreads}">
+            <TextBlock Height="20" Width="200"  TextAlignment="Center" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding EstimatedChargeRemaining}">
 
             </TextBlock>
         </StackPanel>

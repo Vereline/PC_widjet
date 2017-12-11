@@ -34,10 +34,15 @@ namespace PortableWidget.Pages
 
         public class BatteryDataClass : INotifyPropertyChanged
         {
-            private string _id;
-            private string _charge;
-            private float _fullCharge;
-            private float _rechargeTime;
+            //private string _id;
+            //private string _charge;
+            //private float _fullCharge;
+            //private float _rechargeTime;
+            private string _availability;
+            private string _batteryStatus;
+            private double _designVoltage;
+            private UInt32 _estimatedChargeRemaining;
+            private UInt32 _estimatedRunTime;
             private bool isRunning = true;
             int timeout = 1000;
             public Thread getDataThread;
@@ -105,11 +110,12 @@ namespace PortableWidget.Pages
                     return;
                 }
 
-                //ID = CoreData.batteryData[i].ID;
-                //RechargeTime = CoreData.batteryData[i].RechargeTime;
-                //Charge = CoreData.batteryData[i].Charge;
-                //FullCharge = CoreData.batteryData[i].FullCharge;
-                
+                Availability = CoreData.batteryData[i].Availability;
+                BatteryStatus = CoreData.batteryData[i].BatteryStatus;
+                DesignVoltage = CoreData.batteryData[i].DesignVoltage;
+                EstimatedChargeRemaining = CoreData.batteryData[i].EstimatedChargeRemaining;
+                EstimatedRunTime = CoreData.batteryData[i].EstimatedRunTime;
+
                 //CollectingData();
             }
 
@@ -122,7 +128,7 @@ namespace PortableWidget.Pages
                         RefreshBinding();
                     }
                     var now = DateTime.Now;
-                    _trend = _rechargeTime;
+                    _trend = _estimatedChargeRemaining;
                     try
                     {
                         ChartValuesBattery.Add(new MeasureModelBattery
@@ -135,54 +141,61 @@ namespace PortableWidget.Pages
                     {
                         System.Console.Write(e);
                     }
-
-
+                    
                     SetAxisLimits(now);
-                    //System.Console.Write("now {0}", now);
-                    //System.Console.Write("value {0}", _trend);
-                    ////lets only use the last 150 values
+
                     if (ChartValuesBattery.Count > 150) ChartValuesBattery.RemoveAt(0);
                     Thread.Sleep(timeout);
                 }
 
             }
 
-            public string ID
+            public string Availability
             {
-                get { return _id; }
+                get { return _availability; }
                 set
                 {
-                    _id = value;
+                    _availability = value;
                     OnPropertyChanged();
                 }
             }
 
-            public float FullCharge
+            public double DesignVoltage
             {
-                get { return _fullCharge; }
+                get { return _designVoltage; }
                 set
                 {
-                    _fullCharge = value;
+                    _designVoltage = value;
                     OnPropertyChanged();
                 }
             }
 
-            public float RechargeTime
+            public UInt32 EstimatedChargeRemaining
             {
-                get { return _rechargeTime; }
+                get { return _estimatedChargeRemaining; }
                 set
                 {
-                    _rechargeTime = value;
+                    _estimatedChargeRemaining = value;
                     OnPropertyChanged();
                 }
             }
 
-            public string Charge
+            public UInt32 EstimatedRunTime
             {
-                get { return _charge; }
+                get { return _estimatedRunTime; }
                 set
                 {
-                    _charge = value;
+                    _estimatedRunTime = value;
+                    OnPropertyChanged();
+                }
+            }
+            
+            public string BatteryStatus
+            {
+                get { return _batteryStatus; }
+                set
+                {
+                    _batteryStatus = value;
                     OnPropertyChanged();
                 }
             }
@@ -194,11 +207,11 @@ namespace PortableWidget.Pages
                 {
                     return;
                 }
-
-                //ID = CoreData.batteryData[i].ID;
-                //RechargeTime = CoreData.batteryData[i].RechargeTime;
-                //Charge = CoreData.batteryData[i].Charge;
-                //FullCharge = CoreData.batteryData[i].FullCharge;
+                Availability = CoreData.batteryData[i].Availability;
+                BatteryStatus = CoreData.batteryData[i].BatteryStatus;
+                DesignVoltage = CoreData.batteryData[i].DesignVoltage;
+                EstimatedChargeRemaining = CoreData.batteryData[i].EstimatedChargeRemaining;
+                EstimatedRunTime = CoreData.batteryData[i].EstimatedRunTime;
             }
 
             public event PropertyChangedEventHandler PropertyChanged;

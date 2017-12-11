@@ -79,8 +79,8 @@ namespace PortableWidget.Core
                 //}
                 //System.Console.WriteLine();
                 return ResultInfo;
-                ResultInfo.Clear();
-                Thread.Sleep(1000);
+                //ResultInfo.Clear();
+                //Thread.Sleep(1000);
             //}
 
         }

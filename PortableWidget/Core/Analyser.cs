@@ -202,11 +202,11 @@ namespace PortableWidget.Core
                     });
 
                 }
-                Console.WriteLine("Av {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].Availability);
-                Console.WriteLine("status {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].BatteryStatus);
-                Console.WriteLine("volt {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].DesignVoltage);
-                Console.WriteLine("ChRem {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].EstimatedChargeRemaining);
-                Console.WriteLine("RunTime {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].EstimatedRunTime);
+                //Console.WriteLine("Av {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].Availability);
+                //Console.WriteLine("status {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].BatteryStatus);
+                //Console.WriteLine("volt {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].DesignVoltage);
+                //Console.WriteLine("ChRem {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].EstimatedChargeRemaining);
+                //Console.WriteLine("RunTime {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].EstimatedRunTime);
                 Thread.Sleep(timeout);
             }
         }
