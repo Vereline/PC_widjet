@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using PortableWidget.Models;
 using PortableWidget.Data;
+using System.Diagnostics;
 
 namespace PortableWidget.Core
 {
@@ -15,6 +16,10 @@ namespace PortableWidget.Core
         Thread _cpuAnalyseThread;
         Thread _ramAnalyseThread;
         Thread _diskAnalyseThread;
+        Thread _gpuAnalyseThread;
+        Thread _ethernetThread;
+        Thread _processesThread;
+        Thread _batteryThread;
 
         public Analyser(int timeout) {
             this.timeout = timeout;
@@ -26,9 +31,17 @@ namespace PortableWidget.Core
             _cpuAnalyseThread = new Thread(AnalyseCpu);
             _ramAnalyseThread = new Thread(AnalyseRam);
             _diskAnalyseThread = new Thread(AnalyseDisk);
+            _gpuAnalyseThread = new Thread(AnalyseGpu);
+            _ethernetThread = new Thread(AnalyseEthernet);
+            _processesThread = new Thread(AnalyseProcessses);
+            _batteryThread = new Thread(AnalyseBattery);
             _cpuAnalyseThread.Start();
             _ramAnalyseThread.Start();
             _diskAnalyseThread.Start();
+            _gpuAnalyseThread.Start();
+            _ethernetThread.Start();
+            _processesThread.Start();
+            _batteryThread.Start();
             
         }
 
@@ -38,7 +51,6 @@ namespace PortableWidget.Core
 
         private void AnalyseCpu() {
             Cpu cpu = new Cpu();
-            Random random = new Random(); // for test
             while (isRun) {
                 lock (CoreData.cpuData) {
                     CoreData.cpuData.Add(new CpuModel() {
@@ -106,11 +118,97 @@ namespace PortableWidget.Core
 
         private void AnalyseProcessses()
         {
-
+            //Processes process = new Processes();
+            Cpu cpu = new Cpu();
+            while (isRun)
+            {
+                lock (CoreData.processData)
+                {
+                    CoreData.processData.Clear();
+                    foreach (var process in Process.GetProcesses())
+                    {
+                        CoreData.processData.Add(new ProcessModel()
+                        {
+                            Id = process.Id,
+                            Name = process.ProcessName,
+                            RamUsage = process.WorkingSet64 / (1024 * 1024)
+                        });
+                    }
+                    Thread.Sleep(timeout);
+                    //Console.WriteLine("");
+                    //CoreData.processData.Clear();
+                }
+                
+            }
         }
         
         private void AnalyseGpu()
         {
+            Gpu gpu = new Gpu();
+            while (isRun)
+            {
+                lock (CoreData.gpuData)
+                {
+                    CoreData.gpuData.Add(new GpuModel()
+                    {
+                        Id = gpu.GetID(),
+                        AdapterRam = gpu.GetAdapterRam(),
+                        GpuDriverVersion = gpu.GetDriverVersion(),
+                        MemoryUsage = gpu.GetUsage(),
+                        Temperature = gpu.GetTemperature(),
+                        FanDutyPercentage = gpu.GetFanDuty()
+                        //Speed = gpu.GetSpeed()
+                    });
+                    //Console.WriteLine("gpu temperature {0}", CoreData.gpuData[CoreData.gpuData.Count - 1].Temperature);
+                    //Console.WriteLine("gpu utilization {0}", CoreData.gpuData[CoreData.gpuData.Count - 1].FanDutyPercentage);
+                }
+                Thread.Sleep(timeout);
+            }
+        }
+
+        private void AnalyseEthernet()
+        {
+            Ethernet ethernet = new Ethernet();
+            while (isRun)
+            {
+                lock (CoreData.ethernetData)
+                {
+                    CoreData.ethernetData.Add(new EthernetModel()
+                    {
+                        //AdapterName = ethernet.GetAdapterName(),
+                        //Id = ethernet.GetDeviceId()
+                        //ConnectionSpeed = ethernet.GetSentSpeed()
+                    });
+                }
+                Thread.Sleep(timeout);
+            }
+        }
+
+        private void AnalyseBattery()
+        {
+            BatteryCore battery = new BatteryCore();
+            while (isRun)
+            {
+                lock (CoreData.batteryData)
+                {
+                    List<string> datalist = battery.GetBatteryInformation();
+                    CoreData.batteryData.Add(new BatteryModel()
+                    {
+                        Availability = datalist[0],
+                        BatteryStatus = datalist[1],
+                        DesignVoltage = Double.Parse(datalist[2]),
+                        EstimatedChargeRemaining = UInt32.Parse(datalist[3]),
+                        EstimatedRunTime = UInt32.Parse(datalist[4])
+                    });
+
+                }
+                //Console.WriteLine("Av {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].Availability);
+                //Console.WriteLine("status {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].BatteryStatus);
+                //Console.WriteLine("volt {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].DesignVoltage);
+                //Console.WriteLine("ChRem {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].EstimatedChargeRemaining);
+                //Console.WriteLine("RunTime {0}", CoreData.batteryData[CoreData.batteryData.Count - 1].EstimatedRunTime);
+                Thread.Sleep(timeout);
+            }
         }
     }
 }

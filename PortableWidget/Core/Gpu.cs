@@ -4,21 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management;
+using System.Diagnostics;
+using OpenHardwareMonitor.Hardware;
 
 namespace PortableWidget.Core
 {
     class Gpu
     {
+        //PerformanceCounter GpuUtilization = new PerformanceCounter("GPU Engine", "Utilization Percentage", "*");
+
+        //public float GetUtilization()
+        //{
+        //    float tmp = GpuUtilization.NextValue();
+        //    var GpuUtility = (float)(Math.Round(tmp, 1));
+        //    return GpuUtility;
+        //}
+
         public string GetID()
         {
-            string clockSpeed = "";
+            string DeviceID = "";
             var searcher = new ManagementObjectSearcher(
             "select DeviceID from Win32_VideoController");
             foreach (var item in searcher.Get())
             {
-                clockSpeed = (string)item["DeviceID"];
+                DeviceID = (string)item["DeviceID"];
             }
-            return clockSpeed;
+            return DeviceID;
         }
 
         public UInt32 GetAdapterRam()
@@ -28,7 +39,7 @@ namespace PortableWidget.Core
                 "select AdapterRAM from Win32_VideoController");
             foreach (var item in searcher.Get())
             {
-                AdapterRAM = (UInt32)item["DeviceID"];
+                AdapterRAM = (UInt32)item["AdapterRam"];
             }
             return AdapterRAM;
         }
@@ -44,5 +55,105 @@ namespace PortableWidget.Core
             }
             return DriverVersion;
         }
+
+        public float GetUsage()
+        {
+            float usage = 0;
+            Computer thisComputer = new Computer() { GPUEnabled = true };
+            thisComputer.Open();
+            foreach (var hardwareItem in thisComputer.Hardware)
+            {
+                if (hardwareItem.HardwareType == HardwareType.GpuNvidia || hardwareItem.HardwareType == HardwareType.GpuAti)
+                {
+                    hardwareItem.Update();
+                    foreach (IHardware subHardware in hardwareItem.SubHardware)
+                    {
+                        subHardware.Update();
+                    }
+                    foreach (var sensor in hardwareItem.Sensors) {
+                        if (sensor.SensorType == SensorType.Load)
+                        {
+                            usage = sensor.Value.Value;
+                        }
+                    }
+                }
+            }
+            return usage;
+        }
+
+        public float GetTemperature()
+        {
+            float temperature = 0;
+            Computer thisComputer = new Computer() { GPUEnabled = true };
+            thisComputer.Open();
+            foreach (var hardwareItem in thisComputer.Hardware)
+            {
+                if (hardwareItem.HardwareType == HardwareType.GpuNvidia)
+                {
+                    hardwareItem.Update();
+                    foreach (IHardware subHardware in hardwareItem.SubHardware)
+                        subHardware.Update();
+                    foreach (var sensor in hardwareItem.Sensors)
+                    {
+                        if (sensor.SensorType == SensorType.Temperature)
+                        {
+                            if (sensor.Value.Value != 0)
+                            {
+                                temperature = sensor.Value.Value;
+                            }
+                        }
+                    }
+                }
+            }
+            return temperature;
+        }
+
+        public float GetFanDuty()
+        {
+            float FanDuty = 0;
+            Computer thisComputer = new Computer() { GPUEnabled = true };
+            thisComputer.Open();
+            foreach (var hardwareItem in thisComputer.Hardware)
+            {
+                if (hardwareItem.HardwareType == HardwareType.GpuNvidia)
+                {
+                    hardwareItem.Update();
+                    foreach (IHardware subHardware in hardwareItem.SubHardware)
+                        subHardware.Update();
+                    foreach (var sensor in hardwareItem.Sensors)
+                    {
+                        if (sensor.SensorType == SensorType.Fan)
+                        {
+                            FanDuty = sensor.Value.Value;
+                        }
+                    }
+                }
+            }
+            return FanDuty;
+        }
+
+        //public float GetSpeed()
+        //{
+        //    float speed = 0;
+        //    Computer thisComputer = new Computer() { GPUEnabled = true };
+        //    thisComputer.Open();
+        //    foreach (var hardwareItem in thisComputer.Hardware)
+        //    {
+        //        if (hardwareItem.HardwareType == HardwareType.GpuNvidia)
+        //        {
+        //            hardwareItem.Update();
+        //            foreach (IHardware subHardware in hardwareItem.SubHardware)
+        //                subHardware.Update();
+        //            foreach (var sensor in hardwareItem.Sensors)
+        //            {
+        //                if (sensor.SensorType == SensorType.Clock)
+        //                {
+        //                    speed = sensor.Value.Value;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return speed;
+        //}
     }
 }

@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Configurations;
 using PortableWidget.Data;
 
 namespace PortableWidget.Pages
@@ -24,15 +26,20 @@ namespace PortableWidget.Pages
     /// </summary>
     public partial class GpuPage : Page
     {
+        public class MeasureModelGpu
+        {
+            public DateTime DateTime { get; set; }
+            public double Value { get; set; }
+        }
+
         public class CoreDataClass : INotifyPropertyChanged
         {
             private string _id; 
-            private string _gpuType; 
-            private int _temperature; 
-            private float _speed; 
+            private string _gpuDriverVersion; 
+            private float _temperature; 
+            private float _adapterRam; 
             private float _memoryUsage; 
-            private int _countOfThreads; 
-            private int _fanDutyPercentage;
+            private float _fanDutyPercentage;
             private bool isRunning = true;
             int timeout = 1000;
             public Thread getDataThread;
@@ -42,23 +49,68 @@ namespace PortableWidget.Pages
                 isRunning = false;
             }
 
+            private double _axisMax;
+            private double _axisMin;
+            private double _trend;
+
+            public ChartValues<MeasureModelGpu> ChartValuesGpu { get; set; }
+            public Func<double, string> DateTimeFormatter { get; set; }
+            public double AxisStep { get; set; }
+            public double AxisUnit { get; set; }
+
+            public double AxisMax
+            {
+                get { return _axisMax; }
+                set
+                {
+                    _axisMax = value;
+                    OnPropertyChanged("AxisMax");
+                }
+            }
+            public double AxisMin
+            {
+                get { return _axisMin; }
+                set
+                {
+                    _axisMin = value;
+                    OnPropertyChanged("AxisMin");
+                }
+            }
+
+
+            private void SetAxisLimits(DateTime now)
+            {
+                AxisMax = now.Ticks + TimeSpan.FromSeconds(1).Ticks; // lets force the axis to be 1 second ahead
+                AxisMin = now.Ticks - TimeSpan.FromSeconds(8).Ticks; // and 8 seconds behind
+            }
 
             public CoreDataClass(int i)
             {
+                var mapper = Mappers.Xy<MeasureModelGpu>()
+               .X(model => model.DateTime.Ticks)
+               .Y(model => model.Value);
+
+                Charting.For<MeasureModelGpu>(mapper);
+
+                ChartValuesGpu = new ChartValues<MeasureModelGpu>();
+
+                DateTimeFormatter = value => new DateTime((long)value).ToString("hh:mm:ss");
+
+                AxisStep = TimeSpan.FromSeconds(1).Ticks;
+                AxisUnit = TimeSpan.TicksPerSecond;
+
+                SetAxisLimits(DateTime.Now);
+
                 if (i >= 0)
                 {
                     return;
                 }
                 Id = CoreData.gpuData[i].Id;
-                GpuType = CoreData.gpuData[i].GpuType;
                 Temperature = CoreData.gpuData[i].Temperature;
-                Speed = CoreData.gpuData[i].Speed;
+                AdapterRam = CoreData.gpuData[i].AdapterRam;
                 MemoryUsage = CoreData.gpuData[i].MemoryUsage;
-                CountOfThreads = CoreData.gpuData[i].CountOfThreads;
+                GpuDriverVersion = CoreData.gpuData[i].GpuDriverVersion;
                 FanDutyPercentage = CoreData.gpuData[i].FanDutyPercentage;
-
-
-                //CollectingData();
             }
 
             public void CollectingData()
@@ -68,7 +120,30 @@ namespace PortableWidget.Pages
                     lock (CoreData.gpuData)
                     {
                         RefreshBinding();
+                        //System.Console.Write(" fan ={0}", FanDutyPercentage);
+                        //System.Console.Write("temp ={0}", Temperature);
                     }
+
+                    var now = DateTime.Now;
+                    _trend = _memoryUsage;
+                    try
+                    {
+                        //_trend = 10;
+                        ChartValuesGpu.Add(new MeasureModelGpu
+                        {
+                            DateTime = now,
+                            Value = _trend
+                        });
+                    }
+                    catch (Exception e)
+                    {
+                        System.Console.Write(e);
+                    }
+
+
+                    SetAxisLimits(now);
+                    if (ChartValuesGpu.Count > 150) ChartValuesGpu.RemoveAt(0);
+
                     Thread.Sleep(timeout);
                 }
 
@@ -84,17 +159,7 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public string GpuType
-            {
-                get { return _gpuType; }
-                set
-                {
-                    _gpuType = value;
-                    OnPropertyChanged();
-                }
-            }
-
-            public int Temperature
+            public float Temperature
             {
                 get { return _temperature; }
                 set
@@ -104,12 +169,12 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public float Speed
+            public float AdapterRam
             {
-                get { return _speed; }
+                get { return _adapterRam; }
                 set
                 {
-                    _speed = value;
+                    _adapterRam = value;
                     OnPropertyChanged();
                 }
             }
@@ -124,17 +189,17 @@ namespace PortableWidget.Pages
                 }
             }
 
-            public int CountOfThreads
+            public string GpuDriverVersion
             {
-                get { return _countOfThreads; }
+                get { return _gpuDriverVersion; }
                 set
                 {
-                    _countOfThreads = value;
+                    _gpuDriverVersion = value;
                     OnPropertyChanged();
                 }
             }
 
-            public int FanDutyPercentage
+            public float FanDutyPercentage
             {
                 get { return _fanDutyPercentage; }
                 set
@@ -144,7 +209,6 @@ namespace PortableWidget.Pages
                 }
             }
 
-
             public void RefreshBinding()
             {
                 var i = CoreData.gpuData.Count - 1;
@@ -152,13 +216,11 @@ namespace PortableWidget.Pages
                 {
                     return;
                 }
-
                 Id = CoreData.gpuData[i].Id;
-                GpuType = CoreData.gpuData[i].GpuType;
                 Temperature = CoreData.gpuData[i].Temperature;
-                Speed = CoreData.gpuData[i].Speed;
+                AdapterRam = CoreData.gpuData[i].AdapterRam;
                 MemoryUsage = CoreData.gpuData[i].MemoryUsage;
-                CountOfThreads = CoreData.gpuData[i].CountOfThreads;
+                GpuDriverVersion = CoreData.gpuData[i].GpuDriverVersion;
                 FanDutyPercentage = CoreData.gpuData[i].FanDutyPercentage;
             }
 

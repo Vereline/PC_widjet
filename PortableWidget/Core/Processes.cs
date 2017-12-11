@@ -16,7 +16,8 @@ namespace PortableWidget.Core
             ProcessName = localProcess.ProcessName;
             return ProcessName;
         }
-
+        // this methods will crash on super computer becouse of (int)id, id is uint,
+        // but for as it is ok.
         public long GetRamUsageById(int id)
         {
             long RamUsage = 0;

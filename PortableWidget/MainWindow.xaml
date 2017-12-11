@@ -34,26 +34,32 @@
                             BorderBrush="White" BorderThickness="2"></Frame>
                         </TabItem.Content>
                     </TabItem>
+                    <TabItem x:Name="BatteryPage" Header="Battery">
+                        <TabItem.Content>
+                            <Frame Source="Pages/BatteryPage.xaml" Margin="3" Background="White"
+                            BorderBrush="White" BorderThickness="2"></Frame>
+                        </TabItem.Content>
+                    </TabItem>
                     <TabItem x:Name="DiscPage" Header="Disc">
                         <TabItem.Content>
                             <Frame Source="Pages/DiskPage.xaml" Margin="3" Background="White"
                             BorderBrush="White" BorderThickness="2"></Frame>
                         </TabItem.Content>
                     </TabItem>
-                    <TabItem x:Name="EthernetPage" Header="Ethernet">
+                    <!--<TabItem x:Name="EthernetPage" Header="Ethernet">
                         <TabItem.Content>
                             <Frame Source="Pages/EthernetPage.xaml" Margin="3" Background="White"
                             BorderBrush="White" BorderThickness="2"></Frame>
                         </TabItem.Content>
-                    </TabItem>
+                    </TabItem>-->
                 </TabControl>
             </TabItem>
-            <TabItem x:Name="Recomendations" Header="Recomendations">
+            <!--<TabItem x:Name="Recomendations" Header="Recomendations">
                 <TabItem.Content>
                     <Frame Source="Pages/RecomendationsPage.xaml" Margin="3" Background="White"
                             BorderBrush="White" BorderThickness="2"></Frame>
                 </TabItem.Content>
-            </TabItem>
+            </TabItem>-->
             <TabItem x:Name="FileUnlocker" Header="Unlocker">
                 <TabItem.Content>
                     <Frame Source="Pages/FileUnlockerPage.xaml" Margin="3" Background="White"
@@ -66,12 +72,12 @@
                             BorderBrush="White" BorderThickness="2"></Frame>
                 </TabItem.Content>
             </TabItem>
-            <TabItem x:Name="Settings" Header="Settings">
+            <!--<TabItem x:Name="Settings" Header="Settings">
                 <TabItem.Content>
                     <Frame Source="Pages/SettingsPage.xaml" Margin="3" Background="White"
                             BorderBrush="White" BorderThickness="2"></Frame>
                 </TabItem.Content>
-            </TabItem>
+            </TabItem>-->
         </TabControl>
         <!--<Frame Source="Pages/CpuPage.xaml" Margin="3" Background="SlateGray"
                BorderBrush="Gray" BorderThickness="2"></Frame>-->

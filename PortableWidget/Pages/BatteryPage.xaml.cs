@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.Policy;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -23,23 +22,27 @@ using PortableWidget.Data;
 namespace PortableWidget.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Cpu_page.xaml
+    /// Логика взаимодействия для BatteryPage.xaml
     /// </summary>
-    public partial class CpuPage : Page
+    public partial class BatteryPage : Page
     {
-        public class MeasureModelCpu
+        public class MeasureModelBattery
         {
             public DateTime DateTime { get; set; }
             public double Value { get; set; }
         }
 
-        public class CpuDataClass: INotifyPropertyChanged
+        public class BatteryDataClass : INotifyPropertyChanged
         {
-            private string _id;
-            private float _usagePercentage;
-            private float _speed;
-            private int _countOfProcesses;
-            private int _countOfThreads;
+            //private string _id;
+            //private string _charge;
+            //private float _fullCharge;
+            //private float _rechargeTime;
+            private string _availability;
+            private string _batteryStatus;
+            private double _designVoltage;
+            private UInt32 _estimatedChargeRemaining;
+            private UInt32 _estimatedRunTime;
             private bool isRunning = true;
             int timeout = 1000;
             public Thread getDataThread;
@@ -53,7 +56,7 @@ namespace PortableWidget.Pages
             private double _axisMin;
             private double _trend;
 
-            public ChartValues<MeasureModelCpu> ChartValuesCpu { get; set; }
+            public ChartValues<MeasureModelBattery> ChartValuesBattery { get; set; }
             public Func<double, string> DateTimeFormatter { get; set; }
             public double AxisStep { get; set; }
             public double AxisUnit { get; set; }
@@ -85,15 +88,15 @@ namespace PortableWidget.Pages
 
 
 
-            public CpuDataClass(int i)
+            public BatteryDataClass(int i)
             {
-                var mapper = Mappers.Xy<MeasureModelCpu>()
+                var mapper = Mappers.Xy<MeasureModelBattery>()
                 .X(model => model.DateTime.Ticks)
                 .Y(model => model.Value);
 
-                Charting.For<MeasureModelCpu>(mapper);
+                Charting.For<MeasureModelBattery>(mapper);
 
-                ChartValuesCpu = new ChartValues<MeasureModelCpu>();
+                ChartValuesBattery = new ChartValues<MeasureModelBattery>();
 
                 DateTimeFormatter = value => new DateTime((long)value).ToString("hh:mm:ss");
 
@@ -107,11 +110,11 @@ namespace PortableWidget.Pages
                     return;
                 }
 
-                Id = CoreData.cpuData[i].Id;
-                UsagePercentage = CoreData.cpuData[i].UsagePercentage;
-                Speed = CoreData.cpuData[i].Speed;
-                CountOfProcesses = CoreData.cpuData[i].CountOfProcesses;
-                CountOfThreads = CoreData.cpuData[i].CountOfThreads;
+                Availability = CoreData.batteryData[i].Availability;
+                BatteryStatus = CoreData.batteryData[i].BatteryStatus;
+                DesignVoltage = CoreData.batteryData[i].DesignVoltage;
+                EstimatedChargeRemaining = CoreData.batteryData[i].EstimatedChargeRemaining;
+                EstimatedRunTime = CoreData.batteryData[i].EstimatedRunTime;
 
                 //CollectingData();
             }
@@ -120,15 +123,15 @@ namespace PortableWidget.Pages
             {
                 while (isRunning)
                 {
-                    lock (CoreData.cpuData)
+                    lock (CoreData.batteryData)
                     {
                         RefreshBinding();
                     }
                     var now = DateTime.Now;
-                    _trend = _usagePercentage;
+                    _trend = _estimatedChargeRemaining;
                     try
                     {
-                        ChartValuesCpu.Add(new MeasureModelCpu
+                        ChartValuesBattery.Add(new MeasureModelBattery
                         {
                             DateTime = now,
                             Value = _trend
@@ -138,80 +141,77 @@ namespace PortableWidget.Pages
                     {
                         System.Console.Write(e);
                     }
-
-
+                    
                     SetAxisLimits(now);
-                    //System.Console.Write("now {0}", now);
-                    //System.Console.Write("value {0}", _trend);
-                    ////lets only use the last 150 values
-                    if (ChartValuesCpu.Count > 150) ChartValuesCpu.RemoveAt(0);
+
+                    if (ChartValuesBattery.Count > 150) ChartValuesBattery.RemoveAt(0);
                     Thread.Sleep(timeout);
                 }
-                
+
             }
 
-            public string Id
+            public string Availability
             {
-                get { return _id; }
-                set {
-                    _id = value;
+                get { return _availability; }
+                set
+                {
+                    _availability = value;
                     OnPropertyChanged();
                 }
             }
 
-            public float UsagePercentage
+            public double DesignVoltage
             {
-                get { return _usagePercentage; }
+                get { return _designVoltage; }
                 set
                 {
-                    _usagePercentage = value;
+                    _designVoltage = value;
                     OnPropertyChanged();
                 }
             }
 
-            public float Speed
+            public UInt32 EstimatedChargeRemaining
             {
-                get { return _speed; }
+                get { return _estimatedChargeRemaining; }
                 set
                 {
-                    _speed = value;
+                    _estimatedChargeRemaining = value;
                     OnPropertyChanged();
                 }
             }
 
-            public int CountOfProcesses
+            public UInt32 EstimatedRunTime
             {
-                get { return _countOfProcesses; }
+                get { return _estimatedRunTime; }
                 set
                 {
-                    _countOfProcesses = value;
+                    _estimatedRunTime = value;
                     OnPropertyChanged();
                 }
             }
-
-            public int CountOfThreads
+            
+            public string BatteryStatus
             {
-                get { return _countOfThreads; }
+                get { return _batteryStatus; }
                 set
                 {
-                    _countOfThreads = value;
+                    _batteryStatus = value;
                     OnPropertyChanged();
                 }
             }
 
             public void RefreshBinding()
             {
-                var i = CoreData.cpuData.Count-1;
+                var i = CoreData.batteryData.Count - 1;
                 if (i <= 0)
                 {
                     return;
                 }
-
-                Id = CoreData.cpuData[i].Id;
-                UsagePercentage = CoreData.cpuData[i].UsagePercentage;
-                Speed = CoreData.cpuData[i].Speed;
-                CountOfProcesses = CoreData.cpuData[i].CountOfProcesses;
-                CountOfThreads = CoreData.cpuData[i].CountOfThreads;
+                Availability = CoreData.batteryData[i].Availability;
+                BatteryStatus = CoreData.batteryData[i].BatteryStatus;
+                DesignVoltage = CoreData.batteryData[i].DesignVoltage;
+                EstimatedChargeRemaining = CoreData.batteryData[i].EstimatedChargeRemaining;
+                EstimatedRunTime = CoreData.batteryData[i].EstimatedRunTime;
             }
 
             public event PropertyChangedEventHandler PropertyChanged;
@@ -223,26 +223,22 @@ namespace PortableWidget.Pages
         }
 
 
-        private CpuDataClass _cpuDataClass;
+        private BatteryDataClass _batteryDataClass;
 
-        public CpuPage()
+
+        public BatteryPage()
         {
             InitializeComponent();
-            _cpuDataClass = new CpuDataClass(0);
-            ContentRoot.DataContext = _cpuDataClass;
-            _cpuDataClass.getDataThread = new Thread(_cpuDataClass.CollectingData);
-            _cpuDataClass.getDataThread.Start();
-        }
-
-        
-
-        private void CartesianChart_Loaded(object sender, RoutedEventArgs e)
-        {
+            InitializeComponent();
+            _batteryDataClass = new BatteryDataClass(0);
+            ContentRoot.DataContext = _batteryDataClass;
+            _batteryDataClass.getDataThread = new Thread(_batteryDataClass.CollectingData);
+            _batteryDataClass.getDataThread.Start();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //_cpuDataClass.StopThread();
+
         }
     }
 }
